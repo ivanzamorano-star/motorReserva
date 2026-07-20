@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Paleta calcada del sitio real hotelplaza.cl — navy petróleo + dorado antiguo + cremas */
+    --background: 45 27% 95%;        /* #F6F4EE crema cálido */
+    --foreground: 203 32% 14%;       /* navy profundo */
+    --card: 42 40% 99%;              /* blanco cálido */
+    --card-foreground: 203 32% 14%;
+    --popover: 42 40% 99%;
+    --popover-foreground: 203 32% 14%;
+    --primary: 203 29% 18%;          /* #20303A navy petróleo */
+    --primary-foreground: 45 30% 96%;
+    --secondary: 44 21% 90%;         /* #E8E6DF crema secundario */
+    --secondary-foreground: 203 29% 20%;
+    --muted: 44 20% 91%;
+    --muted-foreground: 196 9% 40%;  /* #5E6B6E gris pizarra */
+    --accent: 43 25% 88%;
+    --accent-foreground: 203 29% 20%;
+    --destructive: 0 60% 43%;
+    --destructive-foreground: 45 30% 97%;
+    --success: 152 45% 32%;
+    --success-foreground: 0 0% 100%;
+    --gold: 34 51% 50%;              /* #C08A3E dorado antiguo */
+    --gold-foreground: 45 30% 98%;
+    --gold-deep: 35 55% 41%;         /* #A3722F dorado oscuro (hover) */
+    --border: 42 18% 84%;
+    --input: 42 18% 84%;
+    --ring: 34 51% 50%;
+    --radius: 0.625rem;
+    --font-sans: "Outfit", -apple-system, ui-sans-serif, system-ui, sans-serif;
+    --font-serif: "Fraunces", ui-serif, Georgia, serif;
+  }
+
+  .dark {
+    --background: 205 36% 10%;        /* #16242E navy profundo */
+    --foreground: 43 30% 94%;
+    --card: 204 30% 13%;
+    --card-foreground: 43 30% 94%;
+    --popover: 204 30% 13%;
+    --popover-foreground: 43 30% 94%;
+    --primary: 43 30% 92%;
+    --primary-foreground: 204 33% 12%;
+    --secondary: 204 24% 18%;
+    --secondary-foreground: 43 30% 94%;
+    --muted: 204 22% 18%;
+    --muted-foreground: 180 8% 68%;  /* #AEB8B6 salvia */
+    --accent: 204 24% 20%;
+    --accent-foreground: 43 30% 94%;
+    --destructive: 0 60% 42%;
+    --destructive-foreground: 43 30% 94%;
+    --success: 152 50% 42%;
+    --success-foreground: 0 0% 100%;
+    --gold: 36 60% 58%;
+    --gold-foreground: 204 33% 10%;
+    --gold-deep: 34 55% 48%;
+    --border: 204 20% 22%;
+    --input: 204 20% 22%;
+    --ring: 36 60% 58%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "cv01";
+    letter-spacing: 0.005em;
+  }
+  h1, h2, h3, h4, .font-serif {
+    font-optical-sizing: auto;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .bg-noise {
+    background-image: radial-gradient(hsl(var(--foreground) / 0.035) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .gradient-hero {
+    background: radial-gradient(120% 120% at 50% 0%, hsl(var(--primary) / 0.12) 0%, transparent 60%);
+  }
+  /* Overlay del hero: oscurece la fotografía histórica como en el sitio real */
+  .hero-overlay {
+    background: linear-gradient(
+      to top,
+      hsl(var(--primary) / 0.94) 0%,
+      hsl(var(--primary) / 0.72) 42%,
+      hsl(var(--primary) / 0.52) 100%
+    );
+  }
+  /* Overline dorado en versalitas espaciadas */
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-[0.7rem] font-medium uppercase tracking-[0.32em] text-gold;
+  }
+  .eyebrow::after {
+    content: "";
+    @apply h-px w-10 bg-gold/50;
+  }
+  .eyebrow-center {
+    @apply inline-flex items-center justify-center gap-3 text-[0.7rem] font-medium uppercase tracking-[0.32em] text-gold;
+  }
+  .eyebrow-center::before,
+  .eyebrow-center::after {
+    content: "";
+    @apply h-px w-8 bg-gold/45;
+  }
+  .divider-gold {
+    @apply mx-auto h-px w-16 bg-gradient-to-r from-transparent via-gold to-transparent;
+  }
+  .font-display-italic {
+    font-family: var(--font-serif);
+    font-style: italic;
+  }
+  /* Tarjeta elegante con acento dorado superior (como el sitio real) */
+  .card-accent {
+    @apply relative rounded-xl border border-border bg-card overflow-hidden transition-all duration-300;
+    box-shadow: 0 1px 2px hsl(var(--primary) / 0.04), 0 12px 30px -18px hsl(var(--primary) / 0.18);
+  }
+  .card-accent::before {
+    content: "";
+    @apply absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-gold/0 via-gold to-gold/0 opacity-0 transition-opacity duration-300;
+  }
+  .card-accent:hover::before {
+    @apply opacity-100;
+  }
+  .card-accent:hover {
+    box-shadow: 0 2px 4px hsl(var(--primary) / 0.06), 0 26px 50px -24px hsl(var(--primary) / 0.32);
+    transform: translateY(-3px);
+  }
+  /* Botón dorado sólido tipo "Reserva tu estadía" */
+  .btn-gold {
+    @apply inline-flex items-center justify-center rounded-full bg-gold text-gold-foreground font-medium uppercase tracking-[0.16em] transition-colors;
+  }
+  .btn-gold:hover {
+    background: hsl(var(--gold-deep));
+  }
+}

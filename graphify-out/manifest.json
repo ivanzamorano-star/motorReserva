@@ -1,0 +1,312 @@
+{
+  ".claude/settings.json": {
+    "mtime": 1784340749.807835,
+    "ast_hash": "642726a877892bb7f460948f14bb12a8",
+    "semantic_hash": "642726a877892bb7f460948f14bb12a8"
+  },
+  "next-env.d.ts": {
+    "mtime": 1784331694.0,
+    "ast_hash": "ba64ff7d54714a8f64db89b1003207d8",
+    "semantic_hash": "ba64ff7d54714a8f64db89b1003207d8"
+  },
+  "next.config.mjs": {
+    "mtime": 1784334579.8969562,
+    "ast_hash": "d4802d780b6854e14be46accd90e8b51",
+    "semantic_hash": "d4802d780b6854e14be46accd90e8b51"
+  },
+  "package.json": {
+    "mtime": 1784332837.458377,
+    "ast_hash": "4077da22296564b9647dc644e3230ac1",
+    "semantic_hash": "4077da22296564b9647dc644e3230ac1"
+  },
+  "postcss.config.mjs": {
+    "mtime": 1784331277.0,
+    "ast_hash": "c56b5f3c12f777a86e2513f45daab56a",
+    "semantic_hash": "c56b5f3c12f777a86e2513f45daab56a"
+  },
+  "src/app/admin/calendario/page.tsx": {
+    "mtime": 1784332003.0,
+    "ast_hash": "591aa9b8cbe13727b178856b8d493a23",
+    "semantic_hash": "591aa9b8cbe13727b178856b8d493a23"
+  },
+  "src/app/admin/configuracion/page.tsx": {
+    "mtime": 1784332085.0,
+    "ast_hash": "286514c4c933655e0b4039b7a400524b",
+    "semantic_hash": "286514c4c933655e0b4039b7a400524b"
+  },
+  "src/app/admin/habitaciones/page.tsx": {
+    "mtime": 1784334591.3484018,
+    "ast_hash": "9c030ddf2d9122b023e454525b23a8ca",
+    "semantic_hash": "9c030ddf2d9122b023e454525b23a8ca"
+  },
+  "src/app/admin/huespedes/page.tsx": {
+    "mtime": 1784332036.0,
+    "ast_hash": "b13730720560f31a804bd50fefc86c81",
+    "semantic_hash": "b13730720560f31a804bd50fefc86c81"
+  },
+  "src/app/admin/integraciones/page.tsx": {
+    "mtime": 1784332055.0,
+    "ast_hash": "e32e215dfd2136b6276e750893668d24",
+    "semantic_hash": "e32e215dfd2136b6276e750893668d24"
+  },
+  "src/app/admin/layout.tsx": {
+    "mtime": 1784331952.0,
+    "ast_hash": "469e92d74da30d309b2e7a3cf1afbbaf",
+    "semantic_hash": "469e92d74da30d309b2e7a3cf1afbbaf"
+  },
+  "src/app/admin/marketing/page.tsx": {
+    "mtime": 1784339429.8010802,
+    "ast_hash": "af6571bb80ced44ee6317c2cc4c98fb3",
+    "semantic_hash": "af6571bb80ced44ee6317c2cc4c98fb3"
+  },
+  "src/app/admin/page.tsx": {
+    "mtime": 1784331971.0,
+    "ast_hash": "a408fe1b0def7e49be6eec4aa89c418f",
+    "semantic_hash": "a408fe1b0def7e49be6eec4aa89c418f"
+  },
+  "src/app/admin/paquetes/page.tsx": {
+    "mtime": 1784340570.7854064,
+    "ast_hash": "7e66499db398915a152d615c0c188ff3",
+    "semantic_hash": "7e66499db398915a152d615c0c188ff3"
+  },
+  "src/app/admin/reportes/page.tsx": {
+    "mtime": 1784332075.0,
+    "ast_hash": "bf31bc1e7ed1cdadf3796297738ed2ec",
+    "semantic_hash": "bf31bc1e7ed1cdadf3796297738ed2ec"
+  },
+  "src/app/admin/reservas/page.tsx": {
+    "mtime": 1784331976.0,
+    "ast_hash": "f2f6f3e727de621d690d754bead77187",
+    "semantic_hash": "f2f6f3e727de621d690d754bead77187"
+  },
+  "src/app/confirmacion/page.tsx": {
+    "mtime": 1784331662.0,
+    "ast_hash": "c37ee78b117659c63d9f5ad57a431c71",
+    "semantic_hash": "c37ee78b117659c63d9f5ad57a431c71"
+  },
+  "src/app/habitaciones/page.tsx": {
+    "mtime": 1784331623.0,
+    "ast_hash": "88606e662b1e7b0141c792d60b17bae0",
+    "semantic_hash": "88606e662b1e7b0141c792d60b17bae0"
+  },
+  "src/app/layout.tsx": {
+    "mtime": 1784335374.3327935,
+    "ast_hash": "cf9bf1787d79118aec434fea2467a45f",
+    "semantic_hash": "cf9bf1787d79118aec434fea2467a45f"
+  },
+  "src/app/page.tsx": {
+    "mtime": 1784335404.925015,
+    "ast_hash": "e31ad5c22d1dbcd976943d357c019b23",
+    "semantic_hash": "e31ad5c22d1dbcd976943d357c019b23"
+  },
+  "src/app/reserva/[roomId]/page.tsx": {
+    "mtime": 1784331655.0,
+    "ast_hash": "1a446a75618a91f017cbc8e23f20a0eb",
+    "semantic_hash": "1a446a75618a91f017cbc8e23f20a0eb"
+  },
+  "src/components/admin/campanias-list.tsx": {
+    "mtime": 1784339408.9284542,
+    "ast_hash": "6381c9fbb8b6295f1acc22434b2698da",
+    "semantic_hash": "6381c9fbb8b6295f1acc22434b2698da"
+  },
+  "src/components/admin/canal-chart.tsx": {
+    "mtime": 1784332063.0,
+    "ast_hash": "7395d12df197cf19dc1533ad3d13db9c",
+    "semantic_hash": "7395d12df197cf19dc1533ad3d13db9c"
+  },
+  "src/components/admin/crear-paquete-form.tsx": {
+    "mtime": 1784340119.8130016,
+    "ast_hash": "1c95e7935e4ea69020e86bd7e0c364cf",
+    "semantic_hash": "1c95e7935e4ea69020e86bd7e0c364cf"
+  },
+  "src/components/admin/enviar-email-form.tsx": {
+    "mtime": 1784339426.0039568,
+    "ast_hash": "b6f2e41390e6781dd700f7c5370edac8",
+    "semantic_hash": "b6f2e41390e6781dd700f7c5370edac8"
+  },
+  "src/components/admin/enviar-promocion-form.tsx": {
+    "mtime": 1784340556.8813877,
+    "ast_hash": "08e0183d4197e9eb8423a05c996bd48f",
+    "semantic_hash": "08e0183d4197e9eb8423a05c996bd48f"
+  },
+  "src/components/admin/kpi-card.tsx": {
+    "mtime": 1784331959.0,
+    "ast_hash": "0a21f7bc76f5da5755ab5974c2a4c084",
+    "semantic_hash": "0a21f7bc76f5da5755ab5974c2a4c084"
+  },
+  "src/components/admin/mobile-nav.tsx": {
+    "mtime": 1784340083.643629,
+    "ast_hash": "6004690549f7e069b96721f750b76ef4",
+    "semantic_hash": "6004690549f7e069b96721f750b76ef4"
+  },
+  "src/components/admin/paquetes-list.tsx": {
+    "mtime": 1784340101.5701663,
+    "ast_hash": "202f30dda6cf2c002b0863cc4aa49ad9",
+    "semantic_hash": "202f30dda6cf2c002b0863cc4aa49ad9"
+  },
+  "src/components/admin/paquetes-section.tsx": {
+    "mtime": 1784340563.7617104,
+    "ast_hash": "789f6ad2fb5f98bd72588d6d96dd8d46",
+    "semantic_hash": "789f6ad2fb5f98bd72588d6d96dd8d46"
+  },
+  "src/components/admin/reservas-table.tsx": {
+    "mtime": 1784331989.0,
+    "ast_hash": "6c9f80995feb4818a17c96cfaf373c79",
+    "semantic_hash": "6c9f80995feb4818a17c96cfaf373c79"
+  },
+  "src/components/admin/sidebar.tsx": {
+    "mtime": 1784340080.5893266,
+    "ast_hash": "e53c8e4d12269dc942cd8eae942faab3",
+    "semantic_hash": "e53c8e4d12269dc942cd8eae942faab3"
+  },
+  "src/components/booking/checkout-form.tsx": {
+    "mtime": 1784331647.0,
+    "ast_hash": "7f53d402c4b2b14a7417e283a600da3e",
+    "semantic_hash": "7f53d402c4b2b14a7417e283a600da3e"
+  },
+  "src/components/booking/confirmacion-animada.tsx": {
+    "mtime": 1784331672.0,
+    "ast_hash": "054f2181a65af7d4b89cac1c816e3ceb",
+    "semantic_hash": "054f2181a65af7d4b89cac1c816e3ceb"
+  },
+  "src/components/booking/room-card.tsx": {
+    "mtime": 1784335430.753966,
+    "ast_hash": "69204a6c68db9382a16947ac17356143",
+    "semantic_hash": "69204a6c68db9382a16947ac17356143"
+  },
+  "src/components/booking/room-visual.tsx": {
+    "mtime": 1784334583.5238028,
+    "ast_hash": "5903bb1fd1b1530c0e8fe9d2b3231069",
+    "semantic_hash": "5903bb1fd1b1530c0e8fe9d2b3231069"
+  },
+  "src/components/booking/search-bar.tsx": {
+    "mtime": 1784335422.6872172,
+    "ast_hash": "755ac360b5240b41bd5bc67ea1cd7438",
+    "semantic_hash": "755ac360b5240b41bd5bc67ea1cd7438"
+  },
+  "src/components/site-footer.tsx": {
+    "mtime": 1784335409.9783983,
+    "ast_hash": "8e65471f25c4cc4ad28f64ab7f465d08",
+    "semantic_hash": "8e65471f25c4cc4ad28f64ab7f465d08"
+  },
+  "src/components/site-header.tsx": {
+    "mtime": 1784335391.8295932,
+    "ast_hash": "3284403e5151ed1e5c21af203b069cc8",
+    "semantic_hash": "3284403e5151ed1e5c21af203b069cc8"
+  },
+  "src/components/theme-provider.tsx": {
+    "mtime": 1784331322.0,
+    "ast_hash": "0275e616206930a3508fc22b6e0cd1f2",
+    "semantic_hash": "0275e616206930a3508fc22b6e0cd1f2"
+  },
+  "src/components/theme-toggle.tsx": {
+    "mtime": 1784331516.0,
+    "ast_hash": "f04371562bfecc2322da75c072fd46c2",
+    "semantic_hash": "f04371562bfecc2322da75c072fd46c2"
+  },
+  "src/components/ui/avatar.tsx": {
+    "mtime": 1784331450.0,
+    "ast_hash": "2939a50478b9fcd0f8db5953903d3d35",
+    "semantic_hash": "2939a50478b9fcd0f8db5953903d3d35"
+  },
+  "src/components/ui/badge.tsx": {
+    "mtime": 1784331420.0,
+    "ast_hash": "a3fe753c82b654a36bea72c4ecca8dbc",
+    "semantic_hash": "a3fe753c82b654a36bea72c4ecca8dbc"
+  },
+  "src/components/ui/button.tsx": {
+    "mtime": 1784335382.3302004,
+    "ast_hash": "f4abc2133afa69801abdb836c422a75a",
+    "semantic_hash": "f4abc2133afa69801abdb836c422a75a"
+  },
+  "src/components/ui/card.tsx": {
+    "mtime": 1784335431.9281492,
+    "ast_hash": "a394049d2e6fae8adc60f7e61111c2a9",
+    "semantic_hash": "a394049d2e6fae8adc60f7e61111c2a9"
+  },
+  "src/components/ui/dialog.tsx": {
+    "mtime": 1784331508.0,
+    "ast_hash": "e902890bde6e482434eb600aa13b676a",
+    "semantic_hash": "e902890bde6e482434eb600aa13b676a"
+  },
+  "src/components/ui/input.tsx": {
+    "mtime": 1784331429.0,
+    "ast_hash": "a5eab54bc461f515ebd7747790a1ad6f",
+    "semantic_hash": "a5eab54bc461f515ebd7747790a1ad6f"
+  },
+  "src/components/ui/label.tsx": {
+    "mtime": 1784331436.0,
+    "ast_hash": "672673f266d9c8f6751205dcb98e4e9e",
+    "semantic_hash": "672673f266d9c8f6751205dcb98e4e9e"
+  },
+  "src/components/ui/progress.tsx": {
+    "mtime": 1784331456.0,
+    "ast_hash": "53ad554e3c8ae57271eb5a7db2f907bc",
+    "semantic_hash": "53ad554e3c8ae57271eb5a7db2f907bc"
+  },
+  "src/components/ui/separator.tsx": {
+    "mtime": 1784331442.0,
+    "ast_hash": "ef5c1c97858ee2fba8fb358117e20bc3",
+    "semantic_hash": "ef5c1c97858ee2fba8fb358117e20bc3"
+  },
+  "src/components/ui/skeleton.tsx": {
+    "mtime": 1784331486.0,
+    "ast_hash": "c55f76f4faa1d6e888dbc51d41eaa586",
+    "semantic_hash": "c55f76f4faa1d6e888dbc51d41eaa586"
+  },
+  "src/components/ui/table.tsx": {
+    "mtime": 1784331477.0,
+    "ast_hash": "712f4616e90fc0584516d447af84f06a",
+    "semantic_hash": "712f4616e90fc0584516d447af84f06a"
+  },
+  "src/components/ui/tabs.tsx": {
+    "mtime": 1784331465.0,
+    "ast_hash": "c97afc49a77a090d99d58f0d77bf1538",
+    "semantic_hash": "c97afc49a77a090d99d58f0d77bf1538"
+  },
+  "src/components/ui/textarea.tsx": {
+    "mtime": 1784339398.3727372,
+    "ast_hash": "5e926fc662f4d080c4daa76d02ab8c30",
+    "semantic_hash": "5e926fc662f4d080c4daa76d02ab8c30"
+  },
+  "src/data/mock-data.ts": {
+    "mtime": 1784340060.9860537,
+    "ast_hash": "9f48c3510c0c38a08e05e2125eb11c3b",
+    "semantic_hash": "9f48c3510c0c38a08e05e2125eb11c3b"
+  },
+  "src/data/repository.ts": {
+    "mtime": 1784340077.0256438,
+    "ast_hash": "7157716a82bccf474ce80786283aafe0",
+    "semantic_hash": "7157716a82bccf474ce80786283aafe0"
+  },
+  "src/domain/types.ts": {
+    "mtime": 1784340047.5132766,
+    "ast_hash": "652a05868beea91aade7ef69762c0692",
+    "semantic_hash": "652a05868beea91aade7ef69762c0692"
+  },
+  "src/lib/paquete-utils.ts": {
+    "mtime": 1784340536.1528533,
+    "ast_hash": "49ac129637b5acc2e24938ac1f25b41b",
+    "semantic_hash": "49ac129637b5acc2e24938ac1f25b41b"
+  },
+  "src/lib/reserva-utils.ts": {
+    "mtime": 1784331942.0,
+    "ast_hash": "ef89684f37c10104bd33937d767e4ec3",
+    "semantic_hash": "ef89684f37c10104bd33937d767e4ec3"
+  },
+  "src/lib/utils.ts": {
+    "mtime": 1784331316.0,
+    "ast_hash": "56ca65eb0dfb20761922011b907b2a17",
+    "semantic_hash": "56ca65eb0dfb20761922011b907b2a17"
+  },
+  "tailwind.config.ts": {
+    "mtime": 1784331288.0,
+    "ast_hash": "2dfa52abcd77b78fdaa3e048109b76ef",
+    "semantic_hash": "2dfa52abcd77b78fdaa3e048109b76ef"
+  },
+  "tsconfig.json": {
+    "mtime": 1784331258.0,
+    "ast_hash": "0571b7572750de64278b413e513f8022",
+    "semantic_hash": "0571b7572750de64278b413e513f8022"
+  }
+}
