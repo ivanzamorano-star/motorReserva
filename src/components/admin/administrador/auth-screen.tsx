@@ -47,6 +47,9 @@ export function AuthScreen({ staff }: { staff: UsuarioStaff[] }) {
           <CardDescription>
             Ingresa tus credenciales para acceder al menú administrador.
           </CardDescription>
+          <span className="mt-2 inline-block rounded-full bg-amber-100 px-2.5 py-0.5 text-[10px] font-medium text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
+            Develop
+          </span>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
