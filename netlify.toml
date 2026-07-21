@@ -1,7 +1,6 @@
-# Configuración de despliegue en Netlify para Next.js (App Router).
-# El runtime oficial @netlify/plugin-nextjs gestiona SSR, server actions y rutas dinámicas.
+# Configuración de despliegue en Netlify para Next.js (App Router) con pnpm.
 [build]
-  command = "npm run build"
+  command = "pnpm build"
   publish = ".next"
 
 [build.environment]
