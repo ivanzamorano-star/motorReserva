@@ -88,53 +88,55 @@ export function SearchBar({
       className={
         compact
           ? "flex flex-col gap-3 bg-card border border-border rounded-lg p-4 shadow-sm"
-          : "flex flex-col gap-3 bg-card/98 backdrop-blur border border-border/80 rounded-lg p-6 shadow-2xl"
+          : "flex flex-col gap-3 bg-card/98 backdrop-blur border border-border/80 rounded-lg p-4 sm:p-6 shadow-2xl"
       }
     >
-      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-stretch sm:items-end">
-      <div className="flex-1 min-w-0">
-        <Label htmlFor="checkin" className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground mb-1.5 sm:mb-2">
-          <CalendarDays className="h-3.5 w-3.5 shrink-0" /> Check-in
-        </Label>
-        <input
-          id="checkin"
-          type="date"
-          required
-          value={checkIn}
-          min={todayISO(0)}
-          onChange={(e) => setCheckIn(e.target.value)}
-          className="w-full h-10 sm:h-11 rounded-md border border-input bg-background px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        />
-      </div>
-      <div className="flex-1 min-w-0">
-        <Label htmlFor="checkout" className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground mb-1.5 sm:mb-2">
-          <CalendarDays className="h-3.5 w-3.5 shrink-0" /> Check-out
-        </Label>
-        <input
-          id="checkout"
-          type="date"
-          required
-          value={checkOut}
-          min={checkIn}
-          onChange={(e) => setCheckOut(e.target.value)}
-          className="w-full h-10 sm:h-11 rounded-md border border-input bg-background px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        />
-      </div>
-      <div className="w-full sm:w-28">
-        <Label htmlFor="huespedes" className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground mb-1.5 sm:mb-2">
-          <Users className="h-3.5 w-3.5 shrink-0" /> {t("sb.guests")}
-        </Label>
-        <input
-          id="huespedes"
-          type="number"
-          min={1}
-          max={6}
-          value={huespedes}
-          onChange={(e) => setHuespedes(Number(e.target.value))}
-          className="w-full h-10 sm:h-11 rounded-md border border-input bg-background px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        />
-      </div>
-      <Button type="submit" size="lg" variant="gold" className="gap-2 shrink-0 h-10 sm:h-11" disabled={enviando}>
+      <div className="md:flex md:flex-row md:items-end md:gap-3 space-y-2 md:space-y-0">
+        <div className="grid grid-cols-2 md:flex md:flex-1 md:gap-3 gap-2">
+          <div className="min-w-0 md:flex-1">
+            <Label htmlFor="checkin" className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground mb-1.5">
+              <CalendarDays className="h-3.5 w-3.5 shrink-0" /> Check-in
+            </Label>
+            <input
+              id="checkin"
+              type="date"
+              required
+              value={checkIn}
+              min={todayISO(0)}
+              onChange={(e) => setCheckIn(e.target.value)}
+              className="w-full h-11 rounded-md border border-input bg-background px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
+          </div>
+          <div className="min-w-0 md:flex-1">
+            <Label htmlFor="checkout" className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground mb-1.5">
+              <CalendarDays className="h-3.5 w-3.5 shrink-0" /> Check-out
+            </Label>
+            <input
+              id="checkout"
+              type="date"
+              required
+              value={checkOut}
+              min={checkIn}
+              onChange={(e) => setCheckOut(e.target.value)}
+              className="w-full h-11 rounded-md border border-input bg-background px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
+          </div>
+          <div className="min-w-0 md:w-24">
+            <Label htmlFor="huespedes" className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground mb-1.5">
+              <Users className="h-3.5 w-3.5 shrink-0" /> {t("sb.guests")}
+            </Label>
+            <input
+              id="huespedes"
+              type="number"
+              min={1}
+              max={6}
+              value={huespedes}
+              onChange={(e) => setHuespedes(Number(e.target.value))}
+              className="w-full h-11 rounded-md border border-input bg-background px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
+          </div>
+        </div>
+        <Button type="submit" size="lg" variant="gold" className="gap-2 w-full md:w-auto md:self-end h-11" disabled={enviando}>
         {enviando ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" /> {t("sb.searching")}
