@@ -17,7 +17,9 @@ import {
   Croissant,
 } from "lucide-react";
 import { reservationRepository } from "@/data/repository";
-import { formatCLP } from "@/lib/utils";
+import { Precio } from "@/lib/moneda";
+import { T } from "@/lib/idioma";
+import { RoomNombre, RoomDescripcion, RoomAmenitiesChips } from "@/lib/room-i18n";
 
 const CHECK_IN = "2026-07-18";
 const CHECK_OUT = "2026-07-20";
@@ -50,19 +52,16 @@ export default async function HomePage() {
           <div className="container relative pt-28 pb-16 sm:pt-36 sm:pb-24">
             <div className="mx-auto max-w-3xl text-center">
               <span className="eyebrow-center text-gold">
-                Punta Arenas · Patagonia Chilena
+                <T k="hero.overline" />
               </span>
               <h1 className="mt-7 font-serif text-5xl sm:text-7xl font-light tracking-[-0.02em] text-balance text-primary-foreground">
-                Tradición y calidez en el
-                <br className="hidden sm:block" /> corazón de Punta Arenas
+                <T k="hero.title" />
               </h1>
               <p className="mx-auto mt-6 max-w-xl font-display-italic text-lg sm:text-xl text-primary-foreground/80 text-balance">
-                Un edificio histórico frente a la Plaza de Armas, a pasos del
-                Estrecho de Magallanes.
+                <T k="hero.subtitle" />
               </p>
               <p className="mx-auto mt-4 max-w-lg text-sm text-primary-foreground/65 text-balance">
-                Reserve en línea con disponibilidad real y confirmación
-                inmediata — directo con el hotel, sin intermediarios.
+                <T k="hero.support" />
               </p>
             </div>
 
@@ -72,7 +71,7 @@ export default async function HomePage() {
           </div>
 
           <div className="relative pb-8 flex flex-col items-center gap-2 text-primary-foreground/55">
-            <span className="text-[0.62rem] uppercase tracking-[0.3em]">Descubre</span>
+            <span className="text-[0.62rem] uppercase tracking-[0.3em]"><T k="hero.discover" /></span>
             <ChevronDown className="h-4 w-4 animate-bounce" />
           </div>
         </section>
@@ -81,49 +80,32 @@ export default async function HomePage() {
         <section className="bg-secondary/60" id="hotel">
           <div className="container py-20 sm:py-24">
             <div className="mx-auto max-w-2xl text-center">
-              <span className="eyebrow-center">Nuestro hotel</span>
+              <span className="eyebrow-center"><T k="home.hotel.eyebrow" /></span>
               <h2 className="mt-4 font-serif text-3xl sm:text-5xl font-light tracking-[-0.01em]">
-                Un clásico de Punta Arenas
+                <T k="home.hotel.title" />
               </h2>
               <p className="mt-5 text-muted-foreground text-balance leading-relaxed">
-                El Hotel Plaza forma parte de la identidad histórica de la
-                ciudad. Una estadía cálida y cercana, en una ubicación
-                privilegiada para descubrir la Patagonia chilena.
+                <T k="home.hotel.subtitle" />
               </p>
             </div>
 
             <div className="mt-14 grid gap-6 sm:grid-cols-3">
               {[
-                {
-                  icon: MapPin,
-                  titulo: "Ubicación privilegiada",
-                  texto:
-                    "Frente a la Plaza de Armas y a pasos de restaurantes, cafeterías, museos y los principales atractivos de Punta Arenas.",
-                },
-                {
-                  icon: Mountain,
-                  titulo: "Puerta de entrada a la Patagonia",
-                  texto:
-                    "El punto de partida ideal para descubrir Torres del Paine, el Estrecho de Magallanes y las grandes aventuras del sur de Chile.",
-                },
-                {
-                  icon: Sparkles,
-                  titulo: "Tradición y calidez austral",
-                  texto:
-                    "Un hotel con identidad histórica, espacios acogedores y la hospitalidad característica del extremo sur del mundo.",
-                },
+                { icon: MapPin, k: "c1" },
+                { icon: Mountain, k: "c2" },
+                { icon: Sparkles, k: "c3" },
               ].map((c) => {
                 const Icon = c.icon;
                 return (
-                  <article key={c.titulo} className="card-accent p-7">
+                  <article key={c.k} className="card-accent p-7">
                     <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/40 text-gold">
                       <Icon className="h-5 w-5" strokeWidth={1.5} />
                     </div>
                     <h3 className="mt-5 font-serif text-xl font-medium">
-                      {c.titulo}
+                      <T k={`home.hotel.${c.k}.title`} />
                     </h3>
                     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                      {c.texto}
+                      <T k={`home.hotel.${c.k}.text`} />
                     </p>
                   </article>
                 );
@@ -135,14 +117,12 @@ export default async function HomePage() {
         {/* HABITACIONES — showcase editorial con fotos reales */}
         <section className="container py-20 sm:py-28" id="habitaciones">
           <div className="text-center mb-16 max-w-2xl mx-auto">
-            <span className="eyebrow-center">Alojamiento</span>
+            <span className="eyebrow-center"><T k="home.rooms.eyebrow" /></span>
             <h2 className="mt-4 font-serif text-4xl sm:text-5xl font-light tracking-[-0.01em]">
-              Nuestras habitaciones
+              <T k="home.rooms.title" />
             </h2>
             <p className="text-muted-foreground mt-5 leading-relaxed text-balance">
-              Espacios cálidos y cuidados en un edificio de época, con
-              detalles clásicos, ropa de cama impecable y el silencio del
-              extremo sur. Elija la suya y reserve con tarifa directa.
+              <T k="home.rooms.subtitle" />
             </p>
           </div>
 
@@ -159,20 +139,20 @@ export default async function HomePage() {
                   />
                   {h.id === "hab-suite" && (
                     <span className="absolute top-4 left-4 rounded-full bg-gold px-3 py-1 text-[0.62rem] font-medium uppercase tracking-[0.16em] text-gold-foreground">
-                      Más exclusiva
+                      <T k="home.rooms.badge" />
                     </span>
                   )}
                 </div>
                 <div className="flex flex-1 flex-col p-7">
-                  <h3 className="font-serif text-2xl font-medium">{h.nombre}</h3>
+                  <h3 className="font-serif text-2xl font-medium"><RoomNombre h={h} /></h3>
                   <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
-                    {h.descripcion}
+                    <RoomDescripcion h={h} />
                   </p>
 
                   <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
                     <span className="flex items-center gap-1.5">
-                      <Users className="h-3.5 w-3.5 text-gold" /> Hasta{" "}
-                      {h.capacidad} huéspedes
+                      <Users className="h-3.5 w-3.5 text-gold" />{" "}
+                      <T k="home.rooms.upTo" vars={{ n: h.capacidad }} />
                     </span>
                     <span className="flex items-center gap-1.5">
                       <Maximize2 className="h-3.5 w-3.5 text-gold" /> {h.metros2} m²
@@ -180,26 +160,19 @@ export default async function HomePage() {
                   </div>
 
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {h.amenities.slice(0, 4).map((a) => (
-                      <span
-                        key={a}
-                        className="rounded-full border border-border bg-secondary/50 px-2.5 py-1 text-[0.68rem] text-muted-foreground"
-                      >
-                        {a}
-                      </span>
-                    ))}
+                    <RoomAmenitiesChips h={h} limit={4} />
                   </div>
 
                   <div className="mt-auto flex items-end justify-between border-t border-border pt-5 mt-6">
                     <div>
                       <p className="text-[0.62rem] uppercase tracking-[0.16em] text-muted-foreground">
-                        Desde
+                        <T k="home.rooms.from" />
                       </p>
                       <p className="font-serif text-2xl font-medium text-primary">
-                        {formatCLP(h.tarifaNoche)}
+                        <Precio value={h.tarifaNoche} />
                         <span className="text-sm font-sans text-muted-foreground">
                           {" "}
-                          / noche
+                          <T k="home.rooms.perNight" />
                         </span>
                       </p>
                     </div>
@@ -207,7 +180,7 @@ export default async function HomePage() {
                       href={`/reserva/${h.id}?checkIn=${CHECK_IN}&checkOut=${CHECK_OUT}&huespedes=2`}
                       className="btn-gold h-11 px-5 text-[0.62rem] gap-1.5"
                     >
-                      Reservar <ArrowRight className="h-3.5 w-3.5" />
+                      <T k="home.rooms.book" /> <ArrowRight className="h-3.5 w-3.5" />
                     </Link>
                   </div>
                 </div>
@@ -220,7 +193,7 @@ export default async function HomePage() {
               href={`/habitaciones?checkIn=${CHECK_IN}&checkOut=${CHECK_OUT}&huespedes=2`}
               className="inline-flex items-center gap-2 text-sm font-medium text-gold hover:text-gold-deep transition-colors"
             >
-              Ver todas las habitaciones y disponibilidad{" "}
+              <T k="home.rooms.viewAll" />{" "}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -252,46 +225,31 @@ export default async function HomePage() {
               </div>
 
               <div className="lg:pl-6">
-                <span className="eyebrow">Gastronomía</span>
+                <span className="eyebrow"><T k="home.food.eyebrow" /></span>
                 <h2 className="mt-4 font-serif text-3xl sm:text-5xl font-light tracking-[-0.01em]">
-                  Desayuno casero en un comedor de época
+                  <T k="home.food.title" />
                 </h2>
                 <p className="mt-5 text-muted-foreground leading-relaxed">
-                  Cada mañana servimos un desayuno preparado en casa —
-                  queques recién horneados, pan caliente, mermeladas
-                  artesanales y café— en un comedor clásico que conserva la
-                  calidez y el carácter del edificio histórico.
+                  <T k="home.food.subtitle" />
                 </p>
 
                 <div className="mt-8 grid gap-5 sm:grid-cols-3">
                   {[
-                    {
-                      icon: Croissant,
-                      titulo: "Hecho en casa",
-                      texto: "Queques y panes recién horneados cada mañana.",
-                    },
-                    {
-                      icon: UtensilsCrossed,
-                      titulo: "Comedor histórico",
-                      texto: "Mesas vestidas en un salón de época.",
-                    },
-                    {
-                      icon: Coffee,
-                      titulo: "Café de la casa",
-                      texto: "Para comenzar el día antes de salir a explorar.",
-                    },
+                    { icon: Croissant, k: "c1" },
+                    { icon: UtensilsCrossed, k: "c2" },
+                    { icon: Coffee, k: "c3" },
                   ].map((c) => {
                     const Icon = c.icon;
                     return (
-                      <div key={c.titulo}>
+                      <div key={c.k}>
                         <div className="flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 text-gold">
                           <Icon className="h-5 w-5" strokeWidth={1.5} />
                         </div>
                         <p className="mt-4 font-serif text-base font-medium">
-                          {c.titulo}
+                          <T k={`home.food.${c.k}.title`} />
                         </p>
                         <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-                          {c.texto}
+                          <T k={`home.food.${c.k}.text`} />
                         </p>
                       </div>
                     );
@@ -315,19 +273,18 @@ export default async function HomePage() {
             <div className="absolute inset-0 bg-primary/70" />
           </div>
           <div className="container relative py-24 sm:py-32 text-center text-primary-foreground">
-            <span className="eyebrow-center text-gold">Su base en el fin del mundo</span>
+            <span className="eyebrow-center text-gold"><T k="home.cta.eyebrow" /></span>
             <h2 className="mx-auto mt-5 max-w-3xl font-serif text-3xl sm:text-5xl font-light tracking-[-0.01em] text-balance">
-              Duerma en el corazón de Punta Arenas, despierte en la Patagonia
+              <T k="home.cta.title" />
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-primary-foreground/75 leading-relaxed text-balance">
-              Torres del Paine, el Estrecho de Magallanes y los pingüinos de
-              Magdalena, a un paso de su habitación.
+              <T k="home.cta.subtitle" />
             </p>
             <Link
               href={`/habitaciones?checkIn=${CHECK_IN}&checkOut=${CHECK_OUT}&huespedes=2`}
               className="btn-gold mt-9 h-12 px-8 text-[0.68rem]"
             >
-              Reserve su estadía
+              <T k="home.cta.button" />
             </Link>
           </div>
         </section>

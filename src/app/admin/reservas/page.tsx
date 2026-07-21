@@ -1,5 +1,6 @@
 import { reservationRepository } from "@/data/repository";
 import { ReservasTable } from "@/components/admin/reservas-table";
+import { AdminPageHeader } from "@/components/admin/admin-page-header";
 
 export default async function ReservasPage() {
   const reservas = await reservationRepository.listarReservas();
@@ -7,12 +8,9 @@ export default async function ReservasPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-serif text-2xl font-semibold">Reservas</h1>
-        <p className="text-sm text-muted-foreground mt-1">
-          {reservas.length} reservas registradas en el motor de reservas.
-        </p>
-      </div>
+      <AdminPageHeader eyebrow="Operación" title="Reservas">
+        {reservas.length} reservas registradas en el motor de reservas.
+      </AdminPageHeader>
       <ReservasTable reservas={ordenadas} />
     </div>
   );

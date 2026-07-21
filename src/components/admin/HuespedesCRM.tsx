@@ -29,6 +29,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { formatCLP, formatDate, cn } from "@/lib/utils";
+import { NIVEL_DESCUENTO } from "@/lib/pricing";
 
 type NivelCliente = "nuevo" | "frecuente" | "vip";
 
@@ -237,15 +238,19 @@ export function HuespedesCRM() {
     );
   }
 
-  const filtrados = huespedes.filter((h) => {
-    const matchNivel = filtro === "todos" || h.nivel === filtro;
+  // useMemo: el filtrado del directorio solo se recalcula cuando cambian los
+  // datos, el nivel o la búsqueda — evita recorrer toda la lista en cada render.
+  const filtrados = React.useMemo(() => {
     const q = busqueda.trim().toLowerCase();
-    const matchBusqueda =
-      !q ||
-      h.nombre.toLowerCase().includes(q) ||
-      h.email.toLowerCase().includes(q);
-    return matchNivel && matchBusqueda;
-  });
+    return huespedes.filter((h) => {
+      const matchNivel = filtro === "todos" || h.nivel === filtro;
+      const matchBusqueda =
+        !q ||
+        h.nombre.toLowerCase().includes(q) ||
+        h.email.toLowerCase().includes(q);
+      return matchNivel && matchBusqueda;
+    });
+  }, [huespedes, filtro, busqueda]);
 
   return (
     <>
@@ -420,6 +425,17 @@ export function HuespedesCRM() {
               </div>
 
               <div className="flex-1 overflow-y-auto p-6 space-y-7">
+                {/* Beneficio activo en el motor de reservas */}
+                {NIVEL_DESCUENTO[seleccionado.nivel] > 0 && (
+                  <div className="flex items-center gap-3 rounded-lg border border-gold/40 bg-gold/[0.08] px-4 py-3">
+                    <Crown className="h-4 w-4 shrink-0 text-gold" />
+                    <p className="text-sm">
+                      <span className="font-medium">Tarifa exclusiva activa:</span>{" "}
+                      −{Math.round(NIVEL_DESCUENTO[seleccionado.nivel] * 100)}% automático al reservar directo con su correo.
+                    </p>
+                  </div>
+                )}
+
                 {/* Datos personales */}
                 <section>
                   <p className="text-[0.62rem] font-medium uppercase tracking-[0.16em] text-gold mb-3">

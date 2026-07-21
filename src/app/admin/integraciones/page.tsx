@@ -1,22 +1,23 @@
 import { reservationRepository } from "@/data/repository";
+import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Plug, RefreshCw, CheckCircle2, CircleDashed } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+import { IntegracionDetalle } from "@/components/admin/integracion-detalle";
 
 export default async function IntegracionesPage() {
   const integraciones = await reservationRepository.listarIntegraciones();
+  const tipos = await reservationRepository.listarTiposHabitacion();
+  const habitaciones = tipos.map((t) => ({ id: t.id, nombre: t.nombre }));
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-serif text-2xl font-semibold">Integraciones</h1>
-        <p className="text-sm text-muted-foreground mt-1">
-          Conexiones con channel managers y sistemas de gestión hotelera (PMS).
-        </p>
-      </div>
+      <AdminPageHeader eyebrow="Conexiones" title="Integraciones">
+        Conexiones con channel managers y sistemas de gestión hotelera (PMS).
+      </AdminPageHeader>
 
       <div className="grid md:grid-cols-2 gap-5">
         {integraciones.map((i) => (
@@ -58,6 +59,7 @@ export default async function IntegracionesPage() {
               <Button variant="outline" size="sm" className="w-full" disabled={!i.activo}>
                 <RefreshCw className="h-3.5 w-3.5" /> Sincronizar ahora
               </Button>
+              <IntegracionDetalle integracion={i} habitaciones={habitaciones} />
             </CardContent>
           </Card>
         ))}

@@ -1,4 +1,5 @@
 import { reservationRepository } from "@/data/repository";
+import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AvailabilityGrid } from "@/components/admin/availability-grid";
 import { cn } from "@/lib/utils";
@@ -27,10 +28,9 @@ export default async function CalendarioPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-serif text-2xl font-semibold">Calendario de disponibilidad</h1>
-        <p className="text-sm text-muted-foreground mt-1">
+        <AdminPageHeader eyebrow="Operación" title="Calendario de disponibilidad">
           Ocupación por habitación, día a día, para el mes en curso.
-        </p>
+        </AdminPageHeader>
       </div>
 
       <AvailabilityGrid />

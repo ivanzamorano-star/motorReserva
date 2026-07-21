@@ -20,6 +20,8 @@ import {
   ServicioAdicional,
   PaquetePromocional,
   DocumentoTributario,
+  BloqueoHabitacion,
+  EstadoReserva,
 } from "@/domain/types";
 import {
   HOTEL,
@@ -36,9 +38,36 @@ import {
   PAQUETES_PROMOCIONALES,
 } from "./mock-data";
 import { calcularUnidadesDisponibles } from "@/lib/disponibilidad";
+import { tarifaEfectiva, NIVEL_DESCUENTO } from "@/lib/pricing";
+import type { NivelCliente } from "@/domain/types";
+
+// Vista del portal del huésped (datos serializables para la ruta pública /mi-cuenta).
+export interface ReservaPortal {
+  codigo: string;
+  tipoHabitacionId: string;
+  habitacionNombre?: string;
+  habitacionNombreEn?: string;
+  checkIn: string;
+  checkOut: string;
+  huespedes: number;
+  estado: Reserva["estado"];
+  montoTotal: number;
+}
+export interface PerfilHuesped {
+  encontrado: boolean;
+  nombre?: string;
+  nivel?: NivelCliente;
+  descuentoPct?: number;
+  reservas: ReservaPortal[];
+}
 
 function delay<T>(value: T, ms = 350): Promise<T> {
-  return new Promise((resolve) => setTimeout(() => resolve(value), ms));
+  // Latencia simulada ACOTADA. Mantiene el comportamiento asíncrono (para que el
+  // día de mañana se pueda reemplazar por una API real sin tocar la UI), pero sin
+  // penalizar la navegación: antes cada llamada esperaba 350–900 ms artificiales,
+  // que era la causa real de que cambiar de pestaña se sintiera lento.
+  const espera = process.env.NODE_ENV === "production" ? 0 : Math.min(ms, 120);
+  return new Promise((resolve) => setTimeout(() => resolve(value), espera));
 }
 
 // El estado mutable de la demo (reservas nuevas, tarifas editadas, paquetes creados, etc.)
@@ -58,6 +87,8 @@ interface DemoStore {
   envios: EnvioEmail[];
   paquetes: PaquetePromocional[];
   tarifas: Tarifa[];
+  usuarios: UsuarioStaff[];
+  bloqueos: BloqueoHabitacion[];
 }
 
 const globalParaStore = globalThis as unknown as { __hotelPlazaStore?: DemoStore };
@@ -70,6 +101,8 @@ function sembrarStore(): DemoStore {
     envios: [...ENVIOS_EMAIL],
     paquetes: [...PAQUETES_PROMOCIONALES],
     tarifas: [...TARIFAS],
+    usuarios: [...STAFF],
+    bloqueos: [],
   };
 }
 
@@ -77,12 +110,33 @@ function getStore(): DemoStore {
   if (!globalParaStore.__hotelPlazaStore || globalParaStore.__hotelPlazaStore.version !== RESERVAS.length) {
     globalParaStore.__hotelPlazaStore = sembrarStore();
   }
-  return globalParaStore.__hotelPlazaStore;
+  const store = globalParaStore.__hotelPlazaStore;
+  // Safe-guard: si algún array quedó undefined (por HMR o porque se agregó un
+  // campo nuevo a DemoStore tras una recarga), re-siembra completo.
+  if (
+    !Array.isArray(store.reservas) ||
+    !Array.isArray(store.campanias) ||
+    !Array.isArray(store.envios) ||
+    !Array.isArray(store.paquetes) ||
+    !Array.isArray(store.tarifas) ||
+    !Array.isArray(store.usuarios) ||
+    !Array.isArray(store.bloqueos)
+  ) {
+    globalParaStore.__hotelPlazaStore = sembrarStore();
+    return globalParaStore.__hotelPlazaStore;
+  }
+  return store;
 }
 
 export interface ReservationRepository {
   getHotel(): Promise<Hotel>;
-  getDisponibilidad(checkIn: string, checkOut: string): Promise<HabitacionConDisponibilidad[]>;
+  getDisponibilidad(
+    checkIn: string,
+    checkOut: string,
+    opts?: { nivel?: NivelCliente | null }
+  ): Promise<HabitacionConDisponibilidad[]>;
+  getNivelPorEmail(email: string): Promise<NivelCliente | null>;
+  getPerfilHuesped(email: string): Promise<PerfilHuesped>;
   getTipoHabitacion(id: string): Promise<TipoHabitacion | undefined>;
   crearReserva(input: {
     tipoHabitacionId: string;
@@ -122,6 +176,39 @@ export interface ReservationRepository {
   togglePaquete(id: string): Promise<PaquetePromocional>;
   eliminarPaquete(id: string): Promise<void>;
   actualizarTarifario(updates: { id: string; precioNoche: number }[]): Promise<Tarifa[]>;
+
+  // --- Panel Administrador (menú master) ---
+  crearReservaManual(input: {
+    tipoHabitacionId: string;
+    paqueteId?: string;
+    checkIn: string;
+    checkOut: string;
+    huespedes: number;
+    nombre: string;
+    email: string;
+    telefono: string;
+    montoTotal: number;
+    estado: Extract<EstadoReserva, "confirmada" | "pendiente_pago">;
+  }): Promise<Reserva>;
+  cancelarReserva(id: string): Promise<Reserva>;
+  eliminarReserva(id: string): Promise<void>;
+  ajustarTarifaReserva(id: string, nuevoMonto: number): Promise<Reserva>;
+
+  crearUsuario(input: {
+    nombre: string;
+    email: string;
+    rol: UsuarioStaff["rol"];
+  }): Promise<UsuarioStaff>;
+  eliminarUsuario(id: string): Promise<void>;
+
+  listarBloqueos(): Promise<(BloqueoHabitacion & { habitacion?: TipoHabitacion })[]>;
+  crearBloqueo(input: {
+    tipoHabitacionId: string;
+    desde: string;
+    hasta: string;
+    motivo: string;
+  }): Promise<BloqueoHabitacion>;
+  eliminarBloqueo(id: string): Promise<void>;
 }
 
 class MockReservationRepository implements ReservationRepository {
@@ -129,8 +216,13 @@ class MockReservationRepository implements ReservationRepository {
     return delay(HOTEL);
   }
 
-  async getDisponibilidad(checkIn: string, checkOut: string) {
+  async getDisponibilidad(
+    checkIn: string,
+    checkOut: string,
+    opts?: { nivel?: NivelCliente | null }
+  ) {
     const store = getStore();
+    const nivel = opts?.nivel ?? null;
     const resultado: HabitacionConDisponibilidad[] = TIPOS_HABITACION.map((tipo) => {
       const tarifaVigente =
         store.tarifas.find(
@@ -148,13 +240,69 @@ class MockReservationRepository implements ReservationRepository {
         store.reservas
       );
 
+      // Tarifa secreta: si se reconoció el nivel del huésped, se aplica su beneficio.
+      const precioBase = tarifaVigente?.precioNoche ?? 0;
+      const efectiva = tarifaEfectiva(precioBase, nivel);
+
       return {
         ...tipo,
-        tarifaNoche: tarifaVigente?.precioNoche ?? 0,
+        tarifaNoche: efectiva.tarifaNoche,
         unidadesDisponibles,
+        ...(efectiva.descuentoPct > 0
+          ? {
+              tarifaBase: efectiva.tarifaBase,
+              descuentoPct: efectiva.descuentoPct,
+              nivelAplicado: efectiva.nivelAplicado,
+            }
+          : {}),
       };
     });
     return delay(resultado, 500);
+  }
+
+  async getNivelPorEmail(email: string) {
+    const limpio = email.trim().toLowerCase();
+    if (!limpio) return delay<NivelCliente | null>(null, 200);
+    const huesped = HUESPEDES.find((h) => h.email.toLowerCase() === limpio);
+    return delay<NivelCliente | null>(huesped?.nivel ?? null, 200);
+  }
+
+  async getPerfilHuesped(email: string): Promise<PerfilHuesped> {
+    const limpio = email.trim().toLowerCase();
+    const huesped = limpio
+      ? HUESPEDES.find((h) => h.email.toLowerCase() === limpio)
+      : undefined;
+    if (!huesped) return delay<PerfilHuesped>({ encontrado: false, reservas: [] }, 250);
+
+    const store = getStore();
+    const reservas: ReservaPortal[] = store.reservas
+      .filter((r) => r.huespedId === huesped.id)
+      .sort((a, b) => (a.checkIn < b.checkIn ? 1 : -1))
+      .map((r) => {
+        const hab = TIPOS_HABITACION.find((t) => t.id === r.tipoHabitacionId);
+        return {
+          codigo: r.codigo,
+          tipoHabitacionId: r.tipoHabitacionId,
+          habitacionNombre: hab?.nombre,
+          habitacionNombreEn: hab?.nombreEn,
+          checkIn: r.checkIn,
+          checkOut: r.checkOut,
+          huespedes: r.huespedes,
+          estado: r.estado,
+          montoTotal: r.montoTotal,
+        };
+      });
+    const nivel: NivelCliente = huesped.nivel ?? "nuevo";
+    return delay<PerfilHuesped>(
+      {
+        encontrado: true,
+        nombre: huesped.nombre,
+        nivel,
+        descuentoPct: NIVEL_DESCUENTO[nivel],
+        reservas,
+      },
+      350
+    );
   }
 
   async getTipoHabitacion(id: string) {
@@ -257,7 +405,7 @@ class MockReservationRepository implements ReservationRepository {
   }
 
   async listarStaff() {
-    return delay(STAFF, 250);
+    return delay([...getStore().usuarios], 250);
   }
 
   async listarIntegraciones() {
@@ -381,6 +529,168 @@ class MockReservationRepository implements ReservationRepository {
   async eliminarPaquete(id: string) {
     const store = getStore();
     store.paquetes = store.paquetes.filter((p) => p.id !== id);
+    await delay(undefined, 300);
+  }
+
+  // --- Panel Administrador (menú master) ---
+
+  async crearReservaManual(input: {
+    tipoHabitacionId: string;
+    paqueteId?: string;
+    checkIn: string;
+    checkOut: string;
+    huespedes: number;
+    nombre: string;
+    email: string;
+    telefono: string;
+    montoTotal: number;
+    estado: Extract<EstadoReserva, "confirmada" | "pendiente_pago">;
+  }) {
+    const store = getStore();
+    const tipo = TIPOS_HABITACION.find((t) => t.id === input.tipoHabitacionId);
+    if (!tipo) throw new Error("Tipo de habitación no válido.");
+    if (input.checkOut <= input.checkIn) {
+      throw new Error("La fecha de salida debe ser posterior a la de entrada.");
+    }
+
+    // 1) Regla de negocio: no permitir reservar sobre un bloqueo operativo vigente.
+    const bloqueada = store.bloqueos.some(
+      (b) =>
+        b.tipoHabitacionId === input.tipoHabitacionId &&
+        input.checkIn < b.hasta &&
+        input.checkOut > b.desde
+    );
+    if (bloqueada) {
+      throw new Error("La habitación está bloqueada para esas fechas (mantenimiento / fuera de servicio).");
+    }
+
+    // 2) Segunda verificación de disponibilidad para evitar overbooking.
+    const unidadesDisponibles = calcularUnidadesDisponibles(
+      input.checkIn,
+      input.checkOut,
+      input.tipoHabitacionId,
+      tipo.cantidadUnidades,
+      store.reservas
+    );
+    if (unidadesDisponibles <= 0) {
+      throw new Error("No quedan unidades disponibles de esta habitación para las fechas seleccionadas.");
+    }
+
+    const nueva: Reserva = {
+      id: `res-${Date.now()}`,
+      codigo: `HP-ADM-${Math.floor(1000 + Math.random() * 9000)}`,
+      hotelId: HOTEL.id,
+      tipoHabitacionId: input.tipoHabitacionId,
+      huespedId: `hu-adm-${Date.now()}`,
+      checkIn: input.checkIn,
+      checkOut: input.checkOut,
+      huespedes: input.huespedes,
+      estado: input.estado,
+      canalOrigen: "directo",
+      montoTotal: Math.max(0, Math.round(input.montoTotal)),
+      creadaEn: new Date().toISOString(),
+      huespedNombre: input.nombre.trim(),
+      huespedEmail: input.email.trim(),
+      huespedTelefono: input.telefono.trim(),
+    };
+    store.reservas = [nueva, ...store.reservas];
+
+    if (input.paqueteId) {
+      const idx = store.paquetes.findIndex((p) => p.id === input.paqueteId);
+      if (idx !== -1) {
+        store.paquetes[idx] = {
+          ...store.paquetes[idx],
+          vecesVendido: store.paquetes[idx].vecesVendido + 1,
+        };
+      }
+    }
+    return delay(nueva, 500);
+  }
+
+  async cancelarReserva(id: string) {
+    const store = getStore();
+    const idx = store.reservas.findIndex((r) => r.id === id);
+    if (idx === -1) throw new Error("Reserva no encontrada");
+    store.reservas[idx] = { ...store.reservas[idx], estado: "cancelada_hotel" };
+    return delay(store.reservas[idx], 300);
+  }
+
+  async eliminarReserva(id: string) {
+    const store = getStore();
+    store.reservas = store.reservas.filter((r) => r.id !== id);
+    await delay(undefined, 300);
+  }
+
+  async ajustarTarifaReserva(id: string, nuevoMonto: number) {
+    const store = getStore();
+    const idx = store.reservas.findIndex((r) => r.id === id);
+    if (idx === -1) throw new Error("Reserva no encontrada");
+    if (nuevoMonto < 0) throw new Error("El monto no puede ser negativo.");
+    store.reservas[idx] = { ...store.reservas[idx], montoTotal: Math.round(nuevoMonto) };
+    return delay(store.reservas[idx], 300);
+  }
+
+  async crearUsuario(input: { nombre: string; email: string; rol: UsuarioStaff["rol"] }) {
+    const store = getStore();
+    const emailLimpio = input.email.trim().toLowerCase();
+    if (store.usuarios.some((u) => u.email.toLowerCase() === emailLimpio)) {
+      throw new Error("Ya existe un usuario con ese correo.");
+    }
+    const iniciales = input.nombre
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((p) => p[0]?.toUpperCase() ?? "")
+      .join("");
+    const nuevo: UsuarioStaff = {
+      id: `st-${Date.now()}`,
+      hotelId: HOTEL.id,
+      nombre: input.nombre.trim(),
+      email: emailLimpio,
+      rol: input.rol,
+      avatarIniciales: iniciales || "US",
+    };
+    store.usuarios = [...store.usuarios, nuevo];
+    return delay(nuevo, 400);
+  }
+
+  async eliminarUsuario(id: string) {
+    const store = getStore();
+    store.usuarios = store.usuarios.filter((u) => u.id !== id);
+    await delay(undefined, 300);
+  }
+
+  async listarBloqueos() {
+    const store = getStore();
+    const enriquecidos = [...store.bloqueos]
+      .sort((a, b) => (a.desde < b.desde ? 1 : -1))
+      .map((b) => ({
+        ...b,
+        habitacion: TIPOS_HABITACION.find((t) => t.id === b.tipoHabitacionId),
+      }));
+    return delay(enriquecidos, 300);
+  }
+
+  async crearBloqueo(input: { tipoHabitacionId: string; desde: string; hasta: string; motivo: string }) {
+    const store = getStore();
+    if (input.hasta <= input.desde) {
+      throw new Error("La fecha de fin debe ser posterior a la de inicio.");
+    }
+    const nuevo: BloqueoHabitacion = {
+      id: `blq-${Date.now()}`,
+      tipoHabitacionId: input.tipoHabitacionId,
+      desde: input.desde,
+      hasta: input.hasta,
+      motivo: input.motivo.trim() || "Fuera de servicio",
+      creadoEn: new Date().toISOString(),
+    };
+    store.bloqueos = [nuevo, ...store.bloqueos];
+    return delay(nuevo, 400);
+  }
+
+  async eliminarBloqueo(id: string) {
+    const store = getStore();
+    store.bloqueos = store.bloqueos.filter((b) => b.id !== id);
     await delay(undefined, 300);
   }
 }

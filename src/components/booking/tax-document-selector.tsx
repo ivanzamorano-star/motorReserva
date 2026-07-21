@@ -5,6 +5,7 @@ import { Receipt, Building2, Check } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { useIdioma } from "@/lib/idioma";
 import type {
   TipoDocumentoTributario,
   DatosFactura,
@@ -25,20 +26,20 @@ export const FACTURA_VACIA: DatosFactura = {
 
 const OPCIONES: {
   tipo: TipoDocumentoTributario;
-  titulo: string;
-  subtitulo: string;
+  tituloKey: string;
+  subtituloKey: string;
   icon: typeof Receipt;
 }[] = [
   {
     tipo: "boleta",
-    titulo: "Boleta Electrónica",
-    subtitulo: "Para personas naturales",
+    tituloKey: "tds.boleta.title",
+    subtituloKey: "tds.boleta.sub",
     icon: Receipt,
   },
   {
     tipo: "factura",
-    titulo: "Factura de Empresa",
-    subtitulo: "Con datos tributarios",
+    tituloKey: "tds.factura.title",
+    subtituloKey: "tds.factura.sub",
     icon: Building2,
   },
 ];
@@ -50,6 +51,7 @@ export function TaxDocumentSelector({
   value: DocumentoTributarioValue;
   onChange: (next: DocumentoTributarioValue) => void;
 }) {
+  const { t } = useIdioma();
   function setTipo(tipo: TipoDocumentoTributario) {
     onChange({ ...value, tipo });
   }
@@ -61,9 +63,9 @@ export function TaxDocumentSelector({
   return (
     <div className="space-y-4">
       <div>
-        <h3 className="font-serif text-lg font-medium">Documento tributario</h3>
+        <h3 className="font-serif text-lg font-medium">{t("tds.title")}</h3>
         <p className="text-sm text-muted-foreground mt-0.5">
-          ¿Cómo desea recibir su documento de pago?
+          {t("tds.subtitle")}
         </p>
       </div>
 
@@ -97,10 +99,10 @@ export function TaxDocumentSelector({
               </div>
               <div className="flex-1">
                 <p className="font-serif text-base font-medium leading-tight">
-                  {op.titulo}
+                  {t(op.tituloKey)}
                 </p>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  {op.subtitulo}
+                  {t(op.subtituloKey)}
                 </p>
               </div>
               <span
@@ -121,8 +123,7 @@ export function TaxDocumentSelector({
       {/* Boleta: micro-texto informativo */}
       {value.tipo === "boleta" && (
         <p className="text-xs text-muted-foreground/80 leading-relaxed">
-          Su boleta electrónica será enviada automáticamente al correo principal
-          de la reserva.
+          {t("tds.boletaNote")}
         </p>
       )}
 
@@ -131,16 +132,16 @@ export function TaxDocumentSelector({
         {value.tipo === "factura" && (
           <motion.div
             key="factura-form"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
             className="overflow-hidden"
           >
             <div className="rounded-xl border border-border bg-secondary/40 p-5 space-y-4">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5 sm:col-span-2">
-                  <Label htmlFor="razonSocial">Razón Social</Label>
+                  <Label htmlFor="razonSocial">{t("tds.razonSocial")}</Label>
                   <Input
                     id="razonSocial"
                     required
@@ -150,7 +151,7 @@ export function TaxDocumentSelector({
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label htmlFor="rut">RUT Empresa</Label>
+                  <Label htmlFor="rut">{t("tds.rut")}</Label>
                   <Input
                     id="rut"
                     required
@@ -160,17 +161,17 @@ export function TaxDocumentSelector({
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label htmlFor="giro">Giro Comercial</Label>
+                  <Label htmlFor="giro">{t("tds.giro")}</Label>
                   <Input
                     id="giro"
                     required
                     value={value.factura.giro}
                     onChange={(e) => setFacturaCampo("giro", e.target.value)}
-                    placeholder="Servicios de turismo"
+                    placeholder={t("tds.giroPh")}
                   />
                 </div>
                 <div className="space-y-1.5 sm:col-span-2">
-                  <Label htmlFor="direccion">Dirección Comercial</Label>
+                  <Label htmlFor="direccion">{t("tds.direccion")}</Label>
                   <Input
                     id="direccion"
                     required
@@ -180,14 +181,14 @@ export function TaxDocumentSelector({
                   />
                 </div>
                 <div className="space-y-1.5 sm:col-span-2">
-                  <Label htmlFor="emailDTE">Correo de Facturación (DTE)</Label>
+                  <Label htmlFor="emailDTE">{t("tds.emailDTE")}</Label>
                   <Input
                     id="emailDTE"
                     type="email"
                     required
                     value={value.factura.emailDTE}
                     onChange={(e) => setFacturaCampo("emailDTE", e.target.value)}
-                    placeholder="dte@suempresa.cl — donde recibe sus documentos tributarios"
+                    placeholder={t("tds.emailDTEph")}
                   />
                 </div>
               </div>

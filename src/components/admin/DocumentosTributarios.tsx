@@ -239,7 +239,7 @@ export function DocumentosTributarios() {
                       </Badge>
                     )}
                   </TableCell>
-                  <TableCell className="text-right font-medium">
+                  <TableCell className="text-right font-medium tabular-nums">
                     {formatCLP(d.monto)}
                   </TableCell>
                   <TableCell>

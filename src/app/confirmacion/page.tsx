@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ConfirmacionAnimada } from "@/components/booking/confirmacion-animada";
 import { Button } from "@/components/ui/button";
+import { T } from "@/lib/idioma";
 
 export default async function ConfirmacionPage({
   searchParams,
@@ -20,7 +21,7 @@ export default async function ConfirmacionPage({
         <ConfirmacionAnimada codigo={codigo} habitacion={habitacion} />
         <div className="flex justify-center mt-8">
           <Button asChild variant="outline">
-            <Link href="/">Volver al inicio</Link>
+            <Link href="/"><T k="ca.backHome" /></Link>
           </Button>
         </div>
       </main>

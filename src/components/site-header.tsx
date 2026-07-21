@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { T } from "@/lib/idioma";
+import { PreferenciasSwitch } from "@/components/preferencias-switch";
 
 export function SiteHeader() {
   return (
@@ -26,18 +28,20 @@ export function SiteHeader() {
           />
         </Link>
         <nav className="hidden md:flex items-center gap-10 text-[0.8rem] font-medium tracking-[0.02em] text-foreground/80">
-          <Link href="/#hotel" className="hover:text-gold transition-colors">El hotel</Link>
-          <Link href="/#habitaciones" className="hover:text-gold transition-colors">Habitaciones</Link>
-          <Link href="/#restaurant" className="hover:text-gold transition-colors">Restaurant</Link>
-          <Link href="/#contacto" className="hover:text-gold transition-colors">Contacto</Link>
+          <Link href="/#hotel" className="hover:text-gold transition-colors"><T k="nav.hotel" /></Link>
+          <Link href="/#habitaciones" className="hover:text-gold transition-colors"><T k="nav.rooms" /></Link>
+          <Link href="/#restaurant" className="hover:text-gold transition-colors"><T k="nav.restaurant" /></Link>
+          <Link href="/#contacto" className="hover:text-gold transition-colors"><T k="nav.contact" /></Link>
+          <Link href="/mi-cuenta" className="hover:text-gold transition-colors"><T k="nav.account" /></Link>
         </nav>
         <div className="flex items-center gap-3">
+          <PreferenciasSwitch />
           <ThemeToggle />
           <Link
             href="/admin"
             className="btn-gold hidden sm:inline-flex h-10 px-5 text-[0.62rem]"
           >
-            Panel del hotel
+            <T k="nav.panel" />
           </Link>
         </div>
       </div>

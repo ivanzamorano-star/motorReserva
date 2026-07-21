@@ -98,7 +98,7 @@ function MenuItem({
   );
 }
 
-function RowActionsMenu({
+const RowActionsMenu = React.memo(function RowActionsMenu({
   reserva,
   onCancelar,
   onVerDetalles,
@@ -196,7 +196,7 @@ function RowActionsMenu({
         )}
     </>
   );
-}
+});
 
 /* ------------------------------------------------------------------ */
 /* Panel de detalle de la reserva (slide-over) — misma estética que el  */
@@ -389,29 +389,37 @@ export function ReservasTable({ reservas }: { reservas: ReservaFila[] }) {
   const [busqueda, setBusqueda] = React.useState("");
   const [detalle, setDetalle] = React.useState<ReservaFila | null>(null);
 
-  function cancelarReserva(id: string) {
+  // useCallback: identidad estable del handler → permite que React.memo del menú
+  // de fila realmente evite re-renders al escribir en el buscador.
+  const cancelarReserva = React.useCallback((id: string) => {
     setFilas((prev) =>
       prev.map((r) => (r.id === id ? { ...r, estado: "cancelada_hotel" } : r))
     );
     setDetalle((d) =>
       d && d.id === id ? { ...d, estado: "cancelada_hotel" } : d
     );
-  }
+  }, []);
 
-  const filtradas = filas.filter((r) => {
-    const matchFiltro =
-      filtro === "todas" ||
-      (filtro === "hoy" && r.checkIn === HOY) ||
-      (filtro === "canceladas" && ESTADOS_CANCELADOS.includes(r.estado));
+  const verDetalles = React.useCallback((r: ReservaFila) => setDetalle(r), []);
 
+  // useMemo: el filtrado (que recorre TODAS las reservas) solo se recalcula
+  // cuando cambian los datos, el filtro o la búsqueda — no en cada render.
+  const filtradas = React.useMemo(() => {
     const q = busqueda.trim().toLowerCase();
-    const matchBusqueda =
-      !q ||
-      r.codigo.toLowerCase().includes(q) ||
-      (r.huesped?.nombre.toLowerCase().includes(q) ?? false);
+    return filas.filter((r) => {
+      const matchFiltro =
+        filtro === "todas" ||
+        (filtro === "hoy" && r.checkIn === HOY) ||
+        (filtro === "canceladas" && ESTADOS_CANCELADOS.includes(r.estado));
 
-    return matchFiltro && matchBusqueda;
-  });
+      const matchBusqueda =
+        !q ||
+        r.codigo.toLowerCase().includes(q) ||
+        (r.huesped?.nombre.toLowerCase().includes(q) ?? false);
+
+      return matchFiltro && matchBusqueda;
+    });
+  }, [filas, filtro, busqueda]);
 
   return (
     <>
@@ -489,14 +497,14 @@ export function ReservasTable({ reservas }: { reservas: ReservaFila[] }) {
                       {ESTADO_LABEL[r.estado]}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-right font-medium">
+                  <TableCell className="text-right font-medium tabular-nums">
                     {formatCLP(r.montoTotal)}
                   </TableCell>
                   <TableCell className="text-right">
                     <RowActionsMenu
                       reserva={r}
                       onCancelar={cancelarReserva}
-                      onVerDetalles={setDetalle}
+                      onVerDetalles={verDetalles}
                     />
                   </TableCell>
                 </TableRow>

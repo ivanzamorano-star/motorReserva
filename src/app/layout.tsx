@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { MonedaProvider } from "@/lib/moneda";
+import { IdiomaProvider } from "@/lib/idioma";
 
 export const metadata: Metadata = {
   title: "Hotel Plaza — Reserva directa",
@@ -20,7 +22,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen bg-background font-sans">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-          {children}
+          <IdiomaProvider>
+            <MonedaProvider>{children}</MonedaProvider>
+          </IdiomaProvider>
         </ThemeProvider>
       </body>
     </html>

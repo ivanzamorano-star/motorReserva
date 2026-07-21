@@ -1,4 +1,5 @@
 import { reservationRepository } from "@/data/repository";
+import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -15,10 +16,9 @@ export default async function ConfiguracionPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-serif text-2xl font-semibold">Configuración</h1>
-        <p className="text-sm text-muted-foreground mt-1">Datos del hotel, política de cancelación y equipo.</p>
-      </div>
+      <AdminPageHeader eyebrow="Ajustes" title="Configuración">
+        Datos del hotel, política de cancelación y equipo.
+      </AdminPageHeader>
 
       <Card>
         <CardHeader>

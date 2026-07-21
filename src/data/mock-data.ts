@@ -31,6 +31,9 @@ export const TIPOS_HABITACION: TipoHabitacion[] = [
     hotelId: "hotel-plaza",
     nombre: "Habitación Estándar",
     descripcion: "Habitación cálida y luminosa en el edificio histórico, con vista a la Plaza de Armas.",
+    nombreEn: "Standard Room",
+    descripcionEn: "Warm, bright room in the historic building, overlooking the Plaza de Armas.",
+    amenitiesEn: ["Wi-Fi", "Central heating", "Private bathroom", "Cable TV"],
     capacidad: 2,
     cantidadUnidades: 8,
     metros2: 18,
@@ -43,6 +46,9 @@ export const TIPOS_HABITACION: TipoHabitacion[] = [
     hotelId: "hotel-plaza",
     nombre: "Habitación Superior",
     descripcion: "Espacio ampliado con escritorio de trabajo, ideal para estadías de negocios.",
+    nombreEn: "Superior Room",
+    descripcionEn: "Larger space with a work desk, ideal for business stays.",
+    amenitiesEn: ["Wi-Fi", "Desk", "Minibar", "Private bathroom", "Cable TV"],
     capacidad: 2,
     cantidadUnidades: 6,
     metros2: 24,
@@ -55,6 +61,9 @@ export const TIPOS_HABITACION: TipoHabitacion[] = [
     hotelId: "hotel-plaza",
     nombre: "Suite Estrecho de Magallanes",
     descripcion: "La habitación más exclusiva del hotel, con living separado y vista panorámica.",
+    nombreEn: "Strait of Magellan Suite",
+    descripcionEn: "The hotel's most exclusive room, with a separate living area and panoramic views.",
+    amenitiesEn: ["Wi-Fi", "Separate living area", "Premium minibar", "Robe and slippers", "Panoramic view"],
     capacidad: 3,
     cantidadUnidades: 3,
     metros2: 34,
@@ -74,12 +83,12 @@ export const TARIFAS: Tarifa[] = [
 ];
 
 export const HUESPEDES: Huesped[] = [
-  { id: "hu-1", nombre: "Marcela Ortúzar", email: "marcela.ortuzar@example.com", telefono: "+56 9 8123 4455", pais: "Chile" },
-  { id: "hu-2", nombre: "James Whitfield", email: "j.whitfield@example.com", telefono: "+1 415 555 0142", pais: "Estados Unidos" },
-  { id: "hu-3", nombre: "Laura Fernández", email: "laura.fernandez@example.com", telefono: "+54 9 11 4455 8899", pais: "Argentina" },
-  { id: "hu-4", nombre: "Hans Müller", email: "hans.muller@example.com", telefono: "+49 151 2345 6789", pais: "Alemania" },
-  { id: "hu-5", nombre: "Renata Silva", email: "renata.silva@example.com", telefono: "+55 21 99887 6655", pais: "Brasil" },
-  { id: "hu-6", nombre: "Ignacio Pérez", email: "ignacio.perez@example.com", telefono: "+56 9 7766 5544", pais: "Chile" },
+  { id: "hu-1", nombre: "Marcela Ortúzar", email: "marcela.ortuzar@example.com", telefono: "+56 9 8123 4455", pais: "Chile", nivel: "vip" },
+  { id: "hu-2", nombre: "James Whitfield", email: "j.whitfield@example.com", telefono: "+1 415 555 0142", pais: "Estados Unidos", nivel: "frecuente" },
+  { id: "hu-3", nombre: "Laura Fernández", email: "laura.fernandez@example.com", telefono: "+54 9 11 4455 8899", pais: "Argentina", nivel: "frecuente" },
+  { id: "hu-4", nombre: "Hans Müller", email: "hans.muller@example.com", telefono: "+49 151 2345 6789", pais: "Alemania", nivel: "frecuente" },
+  { id: "hu-5", nombre: "Renata Silva", email: "renata.silva@example.com", telefono: "+55 21 99887 6655", pais: "Brasil", nivel: "nuevo" },
+  { id: "hu-6", nombre: "Ignacio Pérez", email: "ignacio.perez@example.com", telefono: "+56 9 7766 5544", pais: "Chile", nivel: "nuevo" },
 ];
 
 export const PAGOS: Pago[] = [
