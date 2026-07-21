@@ -49,18 +49,18 @@ export default async function HomePage() {
             <div className="absolute inset-0 bg-noise opacity-[0.1]" />
           </div>
 
-          <div className="container relative pt-28 pb-16 sm:pt-36 sm:pb-24">
+          <div className="container relative pt-24 pb-12 sm:pt-36 sm:pb-24">
             <div className="mx-auto max-w-3xl text-center">
               <span className="eyebrow-center text-gold">
                 <T k="hero.overline" />
               </span>
-              <h1 className="mt-7 font-serif text-5xl sm:text-7xl font-light tracking-[-0.02em] text-balance text-primary-foreground">
+              <h1 className="mt-5 sm:mt-7 font-serif text-3xl sm:text-5xl md:text-7xl font-light tracking-[-0.02em] text-balance text-primary-foreground leading-tight">
                 <T k="hero.title" />
               </h1>
-              <p className="mx-auto mt-6 max-w-xl font-display-italic text-lg sm:text-xl text-primary-foreground/80 text-balance">
+              <p className="mx-auto mt-4 sm:mt-6 max-w-xl font-display-italic text-base sm:text-lg md:text-xl text-primary-foreground/80 text-balance">
                 <T k="hero.subtitle" />
               </p>
-              <p className="mx-auto mt-4 max-w-lg text-sm text-primary-foreground/65 text-balance">
+              <p className="mx-auto mt-3 sm:mt-4 max-w-lg text-xs sm:text-sm text-primary-foreground/65 text-balance">
                 <T k="hero.support" />
               </p>
             </div>

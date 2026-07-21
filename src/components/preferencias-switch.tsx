@@ -39,16 +39,16 @@ export function PreferenciasSwitch() {
         onClick={() => setAbierto((o) => !o)}
         aria-label="Idioma y moneda"
         className={cn(
-          "inline-flex items-center gap-1.5 rounded-full border border-border px-3 h-9 text-xs font-medium text-foreground/80 transition-colors hover:border-gold/50 hover:text-foreground",
+          "inline-flex items-center gap-1 rounded-full border border-border px-2 sm:px-3 h-8 sm:h-9 text-[11px] sm:text-xs font-medium text-foreground/80 transition-colors hover:border-gold/50 hover:text-foreground",
           abierto && "border-gold/50 text-foreground"
         )}
       >
-        <Globe className="h-3.5 w-3.5" strokeWidth={1.75} />
+        <Globe className="h-3.5 w-3.5 shrink-0" strokeWidth={1.75} />
         <span className="uppercase">{idioma}</span>
-        <span className="text-muted-foreground">·</span>
-        <span>{moneda}</span>
+        <span className="text-muted-foreground hidden sm:inline">·</span>
+        <span className="hidden sm:inline">{moneda}</span>
         <ChevronDown
-          className={cn("h-3 w-3 text-muted-foreground transition-transform", abierto && "rotate-180")}
+          className={cn("h-3 w-3 text-muted-foreground transition-transform shrink-0", abierto && "rotate-180")}
         />
       </button>
 
