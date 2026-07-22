@@ -87,8 +87,8 @@ export function SearchBar({
       transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
       className={
         compact
-          ? "flex flex-col gap-3 bg-card border border-border rounded-lg p-4 shadow-sm"
-          : "flex flex-col gap-3 bg-card/98 backdrop-blur border border-border/80 rounded-lg p-4 sm:p-6 shadow-2xl"
+          ? "flex flex-col gap-3 bg-card border border-border rounded-xl p-4 shadow-sm"
+          : "flex flex-col gap-3 bg-card/98 backdrop-blur border border-border/80 rounded-xl p-4 sm:p-6 shadow-2xl"
       }
     >
       <div className="md:flex md:flex-row md:items-end md:gap-3 space-y-2 md:space-y-0">

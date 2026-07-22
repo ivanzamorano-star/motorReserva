@@ -200,7 +200,7 @@ const RowActionsMenu = React.memo(function RowActionsMenu({
 
 /* ------------------------------------------------------------------ */
 /* Panel de detalle de la reserva (slide-over) — misma estética que el  */
-/* resto del panel: navy + dorado, tipografía Fraunces, bordes sutiles.  */
+/* resto del panel: navy + dorado, tipografía Playfair Display, bordes sutiles.  */
 /* ------------------------------------------------------------------ */
 
 function DatoDetalle({

@@ -35,13 +35,13 @@ export default async function HabitacionesPage({
   return (
     <>
       <SiteHeader />
-      <main className="container py-10">
+      <main className="container py-12 sm:py-16">
         <div className="mb-8">
           <SearchBar compact defaultEmail={email} />
         </div>
 
         <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
-          <h1 className="font-serif text-2xl font-semibold"><T k="res.title" /></h1>
+          <h1 className="mt-1 font-serif text-3xl sm:text-4xl font-light tracking-[-0.01em]"><T k="res.title" /></h1>
           <p className="text-sm text-muted-foreground">
             {formatDate(checkIn)} — {formatDate(checkOut)} · {noches}{" "}
             <T k={noches === 1 ? "res.night" : "res.nights"} /> · {huespedes}{" "}
@@ -69,7 +69,7 @@ export default async function HabitacionesPage({
         </div>
 
         {nivel && beneficio > 0 && (
-          <div className="mb-6 flex items-center gap-3 rounded-lg border border-gold/40 bg-gold/[0.08] px-5 py-4">
+          <div className="mb-6 flex items-center gap-3 rounded-xl border border-gold/40 bg-gold/[0.08] px-5 py-4">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold/50 bg-gold/15 text-gold">
               <Crown className="h-5 w-5" strokeWidth={1.6} />
             </div>
@@ -85,7 +85,7 @@ export default async function HabitacionesPage({
         )}
 
         {!hayAlgunaDisponible && (
-          <div className="mb-6 flex items-start gap-3 rounded-lg border border-gold/30 bg-gold/[0.06] px-5 py-4">
+          <div className="mb-6 flex items-start gap-3 rounded-xl border border-gold/30 bg-gold/[0.06] px-5 py-4">
             <SearchX className="h-5 w-5 shrink-0 text-gold" />
             <div>
               <p className="font-serif text-base font-medium">

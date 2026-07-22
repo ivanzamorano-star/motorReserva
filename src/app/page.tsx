@@ -15,6 +15,7 @@ import {
   Coffee,
   UtensilsCrossed,
   Croissant,
+  Martini,
 } from "lucide-react";
 import { reservationRepository } from "@/data/repository";
 import { Precio } from "@/lib/moneda";
@@ -38,7 +39,7 @@ export default async function HomePage() {
         <section className="relative overflow-hidden" id="inicio">
           <div className="absolute inset-0">
             <Image
-              src="https://www.hotelplaza.cl/images/hotel_fachada_color.webp"
+              src="/hero-cabo-froward.png"
               alt="Fachada histórica del Hotel Cabo Froward, Punta Arenas"
               fill
               priority
@@ -49,12 +50,16 @@ export default async function HomePage() {
             <div className="absolute inset-0 bg-noise opacity-[0.1]" />
           </div>
 
+          <div className="absolute top-6 left-4 sm:top-8 sm:left-8 z-10 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-primary/50 backdrop-blur px-4 py-1.5 text-primary-foreground shadow-sm">
+            <MapPin className="h-3.5 w-3.5 text-gold shrink-0" />
+            <span className="text-[0.7rem] sm:text-xs font-medium uppercase tracking-[0.14em] whitespace-nowrap">
+              Punta Arenas, Chile · Patagonia
+            </span>
+          </div>
+
           <div className="container relative pt-24 pb-12 sm:pt-36 sm:pb-24">
             <div className="mx-auto max-w-3xl text-center">
-              <span className="eyebrow-center text-gold">
-                <T k="hero.overline" />
-              </span>
-              <h1 className="mt-5 sm:mt-7 font-serif text-3xl sm:text-5xl md:text-7xl font-light tracking-[-0.02em] text-balance text-primary-foreground leading-tight">
+              <h1 className="font-serif text-3xl sm:text-5xl md:text-7xl font-light tracking-[-0.02em] text-balance text-primary-foreground leading-tight">
                 <T k="hero.title" />
               </h1>
               <p className="mx-auto mt-4 sm:mt-6 max-w-xl font-display-italic text-base sm:text-lg md:text-xl text-primary-foreground/80 text-balance">
@@ -199,61 +204,130 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* GASTRONOMÍA — comedor de época y desayuno casero */}
+        {/* GASTRONOMÍA — dos ambientes, editorial de lujo */}
         <section className="bg-secondary/60" id="restaurant">
           <div className="container py-20 sm:py-28">
-            <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-              <div className="relative">
-                <div className="relative overflow-hidden rounded-2xl shadow-xl">
-                  <Image
-                    src="https://www.hotelplaza.cl/images/3.webp"
-                    alt="Comedor histórico del Hotel Cabo Froward"
-                    width={900}
-                    height={640}
-                    className="w-full h-[420px] object-cover"
-                  />
-                </div>
-                <div className="absolute -bottom-6 -right-4 hidden sm:block w-44 overflow-hidden rounded-xl border-4 border-background shadow-lg">
-                  <Image
-                    src="https://www.hotelplaza.cl/images/20.webp"
-                    alt="Desayuno casero"
-                    width={320}
-                    height={240}
-                    className="w-full h-32 object-cover"
-                  />
-                </div>
-              </div>
+            <div className="mx-auto max-w-2xl text-center">
+              <span className="eyebrow-center"><T k="home.food.eyebrow" /></span>
+              <h2 className="mt-4 font-serif text-3xl sm:text-5xl font-light tracking-[-0.01em]">
+                <T k="home.food.title" />
+              </h2>
+              <p className="mt-5 text-muted-foreground leading-relaxed text-balance">
+                <T k="home.food.subtitle" />
+              </p>
+            </div>
 
-              <div className="lg:pl-6">
-                <span className="eyebrow"><T k="home.food.eyebrow" /></span>
+            <div className="mt-16 grid gap-10 lg:grid-cols-12 lg:gap-8">
+              <figure className="lg:col-span-7 group">
+                <div className="relative overflow-hidden rounded-2xl border border-gold/20 shadow-xl aspect-[4/5]">
+                  <Image
+                    src="/images/comedor.png"
+                    alt="Comedor Nao Victoria, Hotel Cabo Froward"
+                    fill
+                    sizes="(min-width: 1024px) 55vw, 100vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/0 to-transparent" />
+                  <div className="absolute inset-x-5 bottom-5 flex items-center gap-3 text-primary-foreground">
+                    <UtensilsCrossed className="h-5 w-5 text-gold shrink-0" strokeWidth={1.5} />
+                    <span className="text-[0.7rem] font-medium uppercase tracking-[0.28em]">
+                      <T k="home.food.room1.eyebrow" />
+                    </span>
+                  </div>
+                </div>
+                <figcaption className="mt-6 max-w-md">
+                  <div className="h-px w-10 bg-gold/50" />
+                  <h3 className="mt-4 font-serif text-2xl sm:text-3xl font-light">
+                    <T k="home.food.room1.title" />
+                  </h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                    <T k="home.food.room1.text" />
+                  </p>
+                </figcaption>
+              </figure>
+
+              <figure className="lg:col-span-5 lg:mt-24 group">
+                <div className="relative overflow-hidden rounded-2xl border border-gold/20 shadow-xl aspect-[4/5]">
+                  <Image
+                    src="/images/comedor-vidriado.png"
+                    alt="Comedor Charles Darwin, Hotel Cabo Froward"
+                    fill
+                    sizes="(min-width: 1024px) 38vw, 100vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/0 to-transparent" />
+                  <div className="absolute inset-x-5 bottom-5 flex items-center gap-3 text-primary-foreground">
+                    <Croissant className="h-5 w-5 text-gold shrink-0" strokeWidth={1.5} />
+                    <span className="text-[0.7rem] font-medium uppercase tracking-[0.28em]">
+                      <T k="home.food.room2.eyebrow" />
+                    </span>
+                  </div>
+                </div>
+                <figcaption className="mt-6 max-w-md">
+                  <div className="h-px w-10 bg-gold/50" />
+                  <h3 className="mt-4 font-serif text-2xl sm:text-3xl font-light">
+                    <T k="home.food.room2.title" />
+                  </h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                    <T k="home.food.room2.text" />
+                  </p>
+                </figcaption>
+              </figure>
+            </div>
+
+            <div className="mt-16 pt-10 border-t border-border grid gap-5 sm:grid-cols-3">
+              {[
+                { icon: Croissant, k: "c1" },
+                { icon: UtensilsCrossed, k: "c2" },
+                { icon: Coffee, k: "c3" },
+              ].map((c) => {
+                const Icon = c.icon;
+                return (
+                  <div key={c.k} className="text-center sm:text-left">
+                    <div className="mx-auto sm:mx-0 flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 text-gold">
+                      <Icon className="h-5 w-5" strokeWidth={1.5} />
+                    </div>
+                    <p className="mt-4 font-serif text-base font-medium">
+                      <T k={`home.food.${c.k}.title`} />
+                    </p>
+                    <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
+                      <T k={`home.food.${c.k}.text`} />
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* BAR — salón de cócteles con historia patagónica */}
+        <section id="bar">
+          <div className="container py-20 sm:py-28">
+            <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+              <div className="lg:pr-6">
+                <span className="eyebrow"><T k="home.bar.eyebrow" /></span>
                 <h2 className="mt-4 font-serif text-3xl sm:text-5xl font-light tracking-[-0.01em]">
-                  <T k="home.food.title" />
+                  <T k="home.bar.title" />
                 </h2>
                 <p className="mt-5 text-muted-foreground leading-relaxed">
-                  <T k="home.food.subtitle" />
+                  <T k="home.bar.subtitle" />
                 </p>
+              </div>
 
-                <div className="mt-8 grid gap-5 sm:grid-cols-3">
-                  {[
-                    { icon: Croissant, k: "c1" },
-                    { icon: UtensilsCrossed, k: "c2" },
-                    { icon: Coffee, k: "c3" },
-                  ].map((c) => {
-                    const Icon = c.icon;
-                    return (
-                      <div key={c.k}>
-                        <div className="flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 text-gold">
-                          <Icon className="h-5 w-5" strokeWidth={1.5} />
-                        </div>
-                        <p className="mt-4 font-serif text-base font-medium">
-                          <T k={`home.food.${c.k}.title`} />
-                        </p>
-                        <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-                          <T k={`home.food.${c.k}.text`} />
-                        </p>
-                      </div>
-                    );
-                  })}
+              <div className="relative overflow-hidden rounded-2xl border border-gold/20 shadow-xl group">
+                <Image
+                  src="/images/bar.png"
+                  alt="Bar Luis Pardo, Hotel Cabo Froward"
+                  width={1000}
+                  height={667}
+                  className="w-full h-[420px] object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/0 to-transparent" />
+                <div className="absolute inset-x-6 bottom-6 flex items-center gap-3 text-primary-foreground">
+                  <Martini className="h-5 w-5 text-gold shrink-0" strokeWidth={1.5} />
+                  <span className="text-[0.7rem] font-medium uppercase tracking-[0.28em]">
+                    <T k="home.bar.tag" />
+                  </span>
                 </div>
               </div>
             </div>

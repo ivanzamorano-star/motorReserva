@@ -39,7 +39,7 @@ export const TIPOS_HABITACION: TipoHabitacion[] = [
     metros2: 18,
     amenities: ["Wi-Fi", "Calefacción central", "Baño privado", "TV cable"],
     imagenGradient: "from-slate-900/70 via-slate-900/10 to-transparent",
-    imagenUrl: "https://www.hotelplaza.cl/images/47.webp",
+    imagenUrl: "/rooms/standard.png",
   },
   {
     id: "hab-superior",
@@ -54,7 +54,7 @@ export const TIPOS_HABITACION: TipoHabitacion[] = [
     metros2: 24,
     amenities: ["Wi-Fi", "Escritorio", "Minibar", "Baño privado", "TV cable"],
     imagenGradient: "from-blue-950/70 via-slate-900/10 to-transparent",
-    imagenUrl: "https://www.hotelplaza.cl/images/36.webp",
+    imagenUrl: "/rooms/superior.png",
   },
   {
     id: "hab-suite",
@@ -69,7 +69,7 @@ export const TIPOS_HABITACION: TipoHabitacion[] = [
     metros2: 34,
     amenities: ["Wi-Fi", "Living separado", "Minibar premium", "Bata y pantuflas", "Vista panorámica"],
     imagenGradient: "from-amber-900/70 via-slate-900/10 to-transparent",
-    imagenUrl: "https://www.hotelplaza.cl/images/78.webp",
+    imagenUrl: "/rooms/suit.png",
   },
 ];
 

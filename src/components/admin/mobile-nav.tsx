@@ -124,20 +124,12 @@ export function AdminMobileNav() {
       <div className="flex items-center justify-between h-14 px-4">
         <div className="flex items-center gap-2.5">
           <Image
-            src="/logo-plaza-dark.png"
-            alt="Hotel Plaza"
-            width={26}
-            height={33}
+            src="/logo-cabo-froward-mark.png"
+            alt="Hotel Cabo Froward"
+            width={36}
+            height={45}
             priority
-            className="h-9 w-auto dark:hidden"
-          />
-          <Image
-            src="/logo-plaza-white.png"
-            alt="Hotel Plaza"
-            width={26}
-            height={33}
-            priority
-            className="hidden h-9 w-auto dark:block"
+            className="h-9 w-auto"
           />
           <span className="font-serif text-sm font-semibold">Hotel Cabo Froward — Admin</span>
         </div>

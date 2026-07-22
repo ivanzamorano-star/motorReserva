@@ -65,7 +65,7 @@ export function RoomCard({
     >
       <Card
         className={cn(
-          "overflow-hidden group rounded-lg transition-all duration-300",
+          "overflow-hidden group rounded-xl transition-all duration-300",
           agotada ? "opacity-70" : "hover:shadow-lg"
         )}
       >

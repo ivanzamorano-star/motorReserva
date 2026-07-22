@@ -1,6 +1,6 @@
 import * as React from "react";
 
-// Encabezado unificado del panel: overline dorado + título Fraunces + subtítulo.
+// Encabezado unificado del panel: overline dorado + título Playfair Display + subtítulo.
 // Fuente única para que todas las vistas del admin se vean idénticas y premium.
 export function AdminPageHeader({
   eyebrow,

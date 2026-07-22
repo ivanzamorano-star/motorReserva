@@ -193,20 +193,12 @@ export function AdminSidebar() {
     <aside className="hidden lg:flex lg:w-64 shrink-0 flex-col border-r border-border bg-card/50 h-screen sticky top-0">
       <div className="flex items-center gap-3 px-5 h-16 border-b border-border">
         <Image
-          src="/logo-plaza-dark.png"
-          alt="Hotel Plaza"
-          width={34}
-          height={43}
+          src="/logo-cabo-froward-mark.png"
+          alt="Hotel Cabo Froward"
+          width={44}
+          height={55}
           priority
-          className="h-11 w-auto dark:hidden"
-        />
-        <Image
-          src="/logo-plaza-white.png"
-          alt="Hotel Plaza"
-          width={34}
-          height={43}
-          priority
-          className="hidden h-11 w-auto dark:block"
+          className="h-11 w-auto"
         />
         <div className="leading-tight">
           <p className="font-serif text-sm font-semibold">Hotel Cabo Froward</p>

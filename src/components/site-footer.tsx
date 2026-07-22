@@ -11,11 +11,11 @@ export function SiteFooter() {
       <div className="container py-14 grid gap-10 sm:grid-cols-3 text-sm">
         <div>
           <Image
-            src="/logo-plaza-white.png"
-            alt="Hotel Plaza Punta Arenas"
-            width={72}
-            height={91}
-            className="h-20 w-auto mb-4"
+            src="/logo-cabo-froward.png"
+            alt="Hotel Cabo Froward"
+            width={205}
+            height={175}
+            className="h-28 sm:h-36 w-auto mb-4"
           />
           <p className="text-primary-foreground/70"><T k="footer.address" /><br /><T k="footer.region" /></p>
         </div>

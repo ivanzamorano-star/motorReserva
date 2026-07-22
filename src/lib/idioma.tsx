@@ -12,6 +12,7 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "nav.hotel": "El hotel",
     "nav.rooms": "Habitaciones",
     "nav.restaurant": "Restaurant",
+    "nav.bar": "Bar",
     "nav.contact": "Contacto",
     "nav.panel": "Panel del hotel",
     // Hero
@@ -65,9 +66,22 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "home.rooms.viewAll": "Ver todas las habitaciones y disponibilidad",
     // Home · Gastronomía
     "home.food.eyebrow": "Gastronomía",
-    "home.food.title": "Desayuno casero en un comedor de época",
+    "home.food.title": "Dos comedores, una misma tradición",
+    "home.food.room1.eyebrow": "Ambiente 01",
+    "home.food.room1.title": "Comedor Nao Victoria",
+    "home.food.room1.text":
+      "Bautizado en honor al buque de alto bordo Nao Victoria, este salón rinde homenaje al esplendor neoclásico traído por los pioneros y estancieros patagónicos a fines del siglo XIX. Entre molduras doradas y líneas clásicas, revive la misma elegancia europea que definió los palacios históricos de Punta Arenas.",
+    "home.food.room2.eyebrow": "Ambiente 02",
+    "home.food.room2.title": "Comedor Charles Darwin",
+    "home.food.room2.text":
+      "Un comedor vidriado en homenaje a Charles Darwin, quien cruzó el Estrecho de Magallanes a bordo del HMS Beagle y encontró en esta tierra austral un laboratorio natural que marcaría para siempre la historia de la ciencia. Entre plantas nativas y luz natural, el espacio invita a observar la Patagonia con la misma curiosidad del naturalista.",
     "home.food.subtitle":
-      "Cada mañana servimos un desayuno preparado en casa — queques recién horneados, pan caliente, mermeladas artesanales y café— en un comedor clásico que conserva la calidez y el carácter del edificio histórico.",
+      "Del salón dorado de gala al comedor vidriado con vista a la ciudad: dos escenarios para disfrutar la cocina de Hotel Cabo Froward.",
+    "home.bar.eyebrow": "Bar",
+    "home.bar.tag": "Cócteles de autor",
+    "home.bar.title": "Bar Luis Pardo",
+    "home.bar.subtitle":
+      "Un salón de líneas neoclásicas, maderas cálidas y luz de araña, bautizado en homenaje al marino Luis Pardo Villalón, quien zarpó desde Punta Arenas al mando del Yelcho y rescató, en pleno invierno antártico de 1916, a los 22 hombres de la expedición de Ernest Shackleton. Hoy es el lugar donde nuestros huéspedes se reúnen a conversar, disfrutar un cóctel de autor y sentirse en casa, cómodos, en el confín de la Patagonia.",
     "home.food.c1.title": "Hecho en casa",
     "home.food.c1.text": "Queques y panes recién horneados cada mañana.",
     "home.food.c2.title": "Comedor histórico",
@@ -296,6 +310,7 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "nav.hotel": "The hotel",
     "nav.rooms": "Rooms",
     "nav.restaurant": "Restaurant",
+    "nav.bar": "Bar",
     "nav.contact": "Contact",
     "nav.panel": "Hotel panel",
     // Hero
@@ -348,9 +363,22 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "home.rooms.viewAll": "View all rooms and availability",
     // Home · Dining
     "home.food.eyebrow": "Dining",
-    "home.food.title": "Homemade breakfast in a period dining room",
+    "home.food.title": "Two dining rooms, one tradition",
+    "home.food.room1.eyebrow": "Setting 01",
+    "home.food.room1.title": "Nao Victoria Dining Room",
+    "home.food.room1.text":
+      "Named after the tall ship Nao Victoria, this hall pays tribute to the neoclassical splendor brought by Patagonia's pioneers and sheep barons in the late 19th century. Amid gilded moldings and classical lines, it revives the same European elegance that defined Punta Arenas' historic mansions.",
+    "home.food.room2.eyebrow": "Setting 02",
+    "home.food.room2.title": "Charles Darwin Dining Room",
+    "home.food.room2.text":
+      "A glass-walled dining room paying tribute to Charles Darwin, who crossed the Strait of Magellan aboard the HMS Beagle and found in this southern land a natural laboratory that would forever change the history of science. Amid native plants and natural light, the space invites you to observe Patagonia with the same curiosity as the naturalist.",
     "home.food.subtitle":
-      "Every morning we serve a homemade breakfast — freshly baked cakes, warm bread, artisan jams and coffee — in a classic dining room that preserves the warmth and character of the historic building.",
+      "From the gilded grand salon to the glass-walled dining room overlooking the city — two settings to enjoy the cuisine of Hotel Cabo Froward.",
+    "home.bar.eyebrow": "Bar",
+    "home.bar.tag": "Signature Cocktails",
+    "home.bar.title": "Luis Pardo Bar",
+    "home.bar.subtitle":
+      "A neoclassical lounge of warm woods and chandelier light, named in honor of Chilean sailor Luis Pardo Villalón, who set sail from Punta Arenas aboard the Yelcho and rescued, in the depths of the 1916 Antarctic winter, the 22 men of Ernest Shackleton's stranded expedition. Today it's where our guests gather to talk, enjoy a signature cocktail, and feel completely at home at the edge of Patagonia.",
     "home.food.c1.title": "Homemade",
     "home.food.c1.text": "Cakes and breads freshly baked every morning.",
     "home.food.c2.title": "Historic dining room",

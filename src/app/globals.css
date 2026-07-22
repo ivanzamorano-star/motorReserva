@@ -31,7 +31,7 @@
     --ring: 34 51% 50%;
     --radius: 0.625rem;
     --font-sans: "Outfit", -apple-system, ui-sans-serif, system-ui, sans-serif;
-    --font-serif: "Fraunces", ui-serif, Georgia, serif;
+    --font-serif: "Playfair Display", ui-serif, Georgia, serif;
   }
 
   .dark {
@@ -118,19 +118,20 @@
     font-family: var(--font-serif);
     font-style: italic;
   }
-  /* Tarjeta elegante con acento dorado superior (como el sitio real) */
+  /* Tarjeta elegante con marco dorado completo, tipo cuadro/certificado (como el sitio real) */
   .card-accent {
-    @apply relative rounded-xl border border-border bg-card overflow-hidden transition-all duration-300;
+    @apply relative rounded-xl border border-gold/25 bg-card overflow-hidden transition-all duration-300;
     box-shadow: 0 1px 2px hsl(var(--primary) / 0.04), 0 12px 30px -18px hsl(var(--primary) / 0.18);
   }
   .card-accent::before {
     content: "";
-    @apply absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-gold/0 via-gold to-gold/0 opacity-0 transition-opacity duration-300;
+    @apply pointer-events-none absolute inset-[6px] rounded-lg border border-gold/0 transition-colors duration-300;
   }
   .card-accent:hover::before {
-    @apply opacity-100;
+    @apply border-gold/50;
   }
   .card-accent:hover {
+    @apply border-gold/70;
     box-shadow: 0 2px 4px hsl(var(--primary) / 0.06), 0 26px 50px -24px hsl(var(--primary) / 0.32);
     transform: translateY(-3px);
   }
