@@ -30,7 +30,7 @@ export function buildPromoEmailTemplate(
 
   const cuerpo = `Estimado/a {{nombre}},
 
-Como huésped de Hotel Plaza, quisimos ofrecerle en exclusiva nuestro paquete "${paquete.nombre}":
+Como huésped de Hotel Cabo Froward, quisimos ofrecerle en exclusiva nuestro paquete "${paquete.nombre}":
 
 - ${paquete.tipoHabitacion?.nombre ?? "Habitación"}${detalleServicios}
 
@@ -42,7 +42,7 @@ Válido hasta el ${formatDate(paquete.vigenciaFin)}, sujeto a disponibilidad.
 Para reservar, responda este correo o escríbanos al +56 61 224 1300.
 
 Un cordial saludo,
-Equipo Hotel Plaza`;
+Equipo Hotel Cabo Froward`;
 
   return { asunto, cuerpo: cuerpo.replace("{{nombre}}", huespedNombre || "{{nombre}}") };
 }

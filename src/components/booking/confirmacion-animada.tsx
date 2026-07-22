@@ -48,7 +48,7 @@ export function ConfirmacionAnimada({ codigo, habitacion }: { codigo: string; ha
         </p>
         <div className="mt-4 flex flex-col sm:flex-row gap-2.5">
           <a
-            href={linkWhatsApp(`Hola, quiero gestionar mi reserva ${codigo} en Hotel Plaza.`)}
+            href={linkWhatsApp(`Hola, quiero gestionar mi reserva ${codigo} en Hotel Cabo Froward.`)}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-[#25D366] px-4 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
@@ -62,7 +62,7 @@ export function ConfirmacionAnimada({ codigo, habitacion }: { codigo: string; ha
             <Phone className="h-4 w-4" /> {t("ca.call")}
           </a>
           <a
-            href="mailto:reservas@hotelplaza.cl"
+            href="mailto:reservas@cabofroward.dev"
             className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium transition-colors hover:border-gold hover:text-gold"
           >
             <Mail className="h-4 w-4" /> {t("ca.email")}

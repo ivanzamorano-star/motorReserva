@@ -15,14 +15,14 @@ import type {
 
 export const HOTEL: Hotel = {
   id: "hotel-plaza",
-  nombre: "Hotel Plaza",
+  nombre: "Hotel Cabo Froward",
   direccion: "Plaza de Armas, Punta Arenas, Magallanes",
   moneda: "CLP",
   idioma: "es",
   zonaHoraria: "America/Santiago",
   politicaCancelacion: "Cancelación gratuita hasta 48 horas antes del check-in.",
   telefono: "+56 61 224 1300",
-  email: "reservas@hotelplaza.cl",
+  email: "reservas@cabofroward.dev",
 };
 
 export const TIPOS_HABITACION: TipoHabitacion[] = [
@@ -184,7 +184,7 @@ export const RESERVAS: Reserva[] = [
 
 export const STAFF: UsuarioStaff[] = [
   { id: "st-1", hotelId: "hotel-plaza", nombre: "Iván Zamorano", email: "ivan.zamorano@iaworks.cl", rol: "administrador", avatarIniciales: "IZ" },
-  { id: "st-2", hotelId: "hotel-plaza", nombre: "Carolina Bahamonde", email: "recepcion@hotelplaza.cl", rol: "recepcion", avatarIniciales: "CB" },
+  { id: "st-2", hotelId: "hotel-plaza", nombre: "Carolina Bahamonde", email: "recepcion@cabofroward.dev", rol: "recepcion", avatarIniciales: "CB" },
 ];
 
 export const CAMPANIAS_EMAIL: CampanaEmail[] = [
@@ -194,7 +194,7 @@ export const CAMPANIAS_EMAIL: CampanaEmail[] = [
     nombre: "Agradecimiento post-estadía",
     trigger: "post_estadia",
     diasDelay: 2,
-    asunto: "Gracias por hospedarse en Hotel Plaza, {{nombre}}",
+    asunto: "Gracias por hospedarse en Hotel Cabo Froward, {{nombre}}",
     descripcion: "Se envía automáticamente 2 días después del check-out. Agradece la estadía e invita a dejar una reseña.",
     activa: true,
     enviosTotales: 34,
@@ -218,7 +218,7 @@ export const CAMPANIAS_EMAIL: CampanaEmail[] = [
     nombre: "Recordatorio de reseña",
     trigger: "resena",
     diasDelay: 5,
-    asunto: "¿Cómo fue su experiencia en Hotel Plaza?",
+    asunto: "¿Cómo fue su experiencia en Hotel Cabo Froward?",
     descripcion: "Se envía 5 días después del check-out si el huésped no dejó reseña, con enlace directo a Google y TripAdvisor.",
     activa: true,
     enviosTotales: 29,
@@ -230,7 +230,7 @@ export const CAMPANIAS_EMAIL: CampanaEmail[] = [
     nombre: "Feliz cumpleaños",
     trigger: "cumpleanos",
     diasDelay: 0,
-    asunto: "Feliz cumpleaños, {{nombre}} — un regalo de Hotel Plaza",
+    asunto: "Feliz cumpleaños, {{nombre}} — un regalo de Hotel Cabo Froward",
     descripcion: "Se envía el día del cumpleaños del huésped (requiere fecha de nacimiento registrada). Incluye un beneficio para su próxima estadía.",
     activa: false,
     enviosTotales: 0,
@@ -242,7 +242,7 @@ export const ENVIOS_EMAIL: EnvioEmail[] = [
   {
     id: "env-1",
     huespedId: "hu-1",
-    asunto: "Gracias por hospedarse en Hotel Plaza, Marcela",
+    asunto: "Gracias por hospedarse en Hotel Cabo Froward, Marcela",
     cuerpo: "Estimada Marcela, muchas gracias por elegirnos durante su reciente visita a Punta Arenas...",
     tipo: "automatizado",
     fecha: "2026-07-13T09:00:00",
@@ -251,7 +251,7 @@ export const ENVIOS_EMAIL: EnvioEmail[] = [
   {
     id: "env-2",
     huespedId: "hu-6",
-    asunto: "¿Cómo fue su experiencia en Hotel Plaza?",
+    asunto: "¿Cómo fue su experiencia en Hotel Cabo Froward?",
     cuerpo: "Estimado Ignacio, esperamos que haya disfrutado su estadía. Nos encantaría conocer su opinión...",
     tipo: "automatizado",
     fecha: "2026-07-11T09:00:00",

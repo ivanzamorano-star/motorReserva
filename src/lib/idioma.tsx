@@ -42,7 +42,7 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "home.hotel.eyebrow": "Nuestro hotel",
     "home.hotel.title": "Un clásico de Punta Arenas",
     "home.hotel.subtitle":
-      "El Hotel Plaza forma parte de la identidad histórica de la ciudad. Una estadía cálida y cercana, en una ubicación privilegiada para descubrir la Patagonia chilena.",
+      "El Hotel Cabo Froward forma parte de la identidad histórica de la ciudad. Una estadía cálida y cercana, en una ubicación privilegiada para descubrir la Patagonia chilena.",
     "home.hotel.c1.title": "Ubicación privilegiada",
     "home.hotel.c1.text":
       "Frente a la Plaza de Armas y a pasos de restaurantes, cafeterías, museos y los principales atractivos de Punta Arenas.",
@@ -89,7 +89,7 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "footer.engineText":
       "Demo comercial construida por ia works spa — desarrollo de software a medida en Magallanes.",
     "footer.legal":
-      "© 2026 Hotel Plaza · Prototipo de demostración, no procesa pagos reales",
+      "© 2026 Hotel Cabo Froward · Prototipo de demostración, no procesa pagos reales",
     // Resultados / disponibilidad
     "res.title": "Disponibilidad para su estadía",
     "res.night": "noche",
@@ -325,7 +325,7 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "home.hotel.eyebrow": "Our hotel",
     "home.hotel.title": "A Punta Arenas classic",
     "home.hotel.subtitle":
-      "The Hotel Plaza is part of the city's historic identity. A warm, welcoming stay in a privileged location to explore Chilean Patagonia.",
+      "The Hotel Cabo Froward is part of the city's historic identity. A warm, welcoming stay in a privileged location to explore Chilean Patagonia.",
     "home.hotel.c1.title": "Prime location",
     "home.hotel.c1.text":
       "Facing the Plaza de Armas and steps from restaurants, cafés, museums and the main attractions of Punta Arenas.",
@@ -372,7 +372,7 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "footer.engineText":
       "Commercial demo built by ia works spa — custom software development in Magallanes.",
     "footer.legal":
-      "© 2026 Hotel Plaza · Demonstration prototype, does not process real payments",
+      "© 2026 Hotel Cabo Froward · Demonstration prototype, does not process real payments",
     // Results / availability
     "res.title": "Availability for your stay",
     "res.night": "night",

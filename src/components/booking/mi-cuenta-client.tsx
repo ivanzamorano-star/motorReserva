@@ -308,7 +308,7 @@ export function MiCuentaClient() {
                 <p className="text-sm text-muted-foreground mt-1">{t("mc.detail.helpBody")}</p>
                 <div className="mt-4 flex flex-col gap-2.5">
                   <a
-                    href={linkWhatsApp(`Hola, quiero gestionar mi reserva ${sel.codigo} en Hotel Plaza.`)}
+                    href={linkWhatsApp(`Hola, quiero gestionar mi reserva ${sel.codigo} en Hotel Cabo Froward.`)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#25D366] px-4 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
@@ -323,7 +323,7 @@ export function MiCuentaClient() {
                       <Phone className="h-4 w-4" /> {t("mc.detail.call")}
                     </a>
                     <a
-                      href={`mailto:reservas@hotelplaza.cl?subject=${encodeURIComponent(
+                      href={`mailto:reservas@cabofroward.dev?subject=${encodeURIComponent(
                         `Reserva ${sel.codigo}`
                       )}`}
                       className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium transition-colors hover:border-gold hover:text-gold"

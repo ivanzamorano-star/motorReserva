@@ -139,7 +139,7 @@ export function AdminMobileNav() {
             priority
             className="hidden h-9 w-auto dark:block"
           />
-          <span className="font-serif text-sm font-semibold">Hotel Plaza — Admin</span>
+          <span className="font-serif text-sm font-semibold">Hotel Cabo Froward — Admin</span>
         </div>
         <div className="flex items-center gap-1">
           <ThemeToggle />

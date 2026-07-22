@@ -2,7 +2,7 @@ import { AdminSidebar } from "@/components/admin/sidebar";
 import { AdminMobileNav } from "@/components/admin/mobile-nav";
 
 export const metadata = {
-  title: "Panel de administración — Hotel Plaza",
+  title: "Panel de administración — Hotel Cabo Froward",
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

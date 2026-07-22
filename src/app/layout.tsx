@@ -5,8 +5,8 @@ import { MonedaProvider } from "@/lib/moneda";
 import { IdiomaProvider } from "@/lib/idioma";
 
 export const metadata: Metadata = {
-  title: "Hotel Plaza — Reserva directa",
-  description: "Motor de reservas propio de Hotel Plaza, Punta Arenas. Demo comercial de ia works spa.",
+  title: "Hotel Cabo Froward — Reserva directa",
+  description: "Motor de reservas propio de Hotel Cabo Froward, Punta Arenas. Demo comercial de ia works spa.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

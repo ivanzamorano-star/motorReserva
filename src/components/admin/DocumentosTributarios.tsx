@@ -104,7 +104,7 @@ const DOCUMENTOS_MOCK: DocumentoTributarioFila[] = [
 function construirTextoFacturacion(d: DocumentoTributarioFila): string {
   if (!d.empresa) return "";
   return [
-    "🧾 Datos de facturación — Hotel Plaza",
+    "🧾 Datos de facturación — Hotel Cabo Froward",
     "",
     `Reserva: ${d.codigoReserva} (${d.huesped})`,
     `Razón Social: ${d.empresa.razonSocial}`,

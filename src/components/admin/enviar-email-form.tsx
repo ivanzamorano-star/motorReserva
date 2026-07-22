@@ -15,12 +15,12 @@ import type { Huesped, EnvioEmail } from "@/domain/types";
 
 const PLANTILLA_DEFECTO = `Estimado/a {{nombre}},
 
-Quisimos escribirle personalmente para agradecer su preferencia por Hotel Plaza durante su reciente estadía en Punta Arenas.
+Quisimos escribirle personalmente para agradecer su preferencia por Hotel Cabo Froward durante su reciente estadía en Punta Arenas.
 
 Esperamos que haya disfrutado de su paso por la Patagonia tanto como nosotros disfrutamos recibirle. Será un gusto volver a atenderle en su próxima visita.
 
 Un cordial saludo,
-Equipo Hotel Plaza`;
+Equipo Hotel Cabo Froward`;
 
 type EnvioConHuesped = EnvioEmail & { huesped?: Huesped };
 
@@ -32,7 +32,7 @@ export function EnviarEmailForm({
   enviosIniciales: EnvioConHuesped[];
 }) {
   const [huespedId, setHuespedId] = React.useState(huespedes[0]?.id ?? "");
-  const [asunto, setAsunto] = React.useState("Un gesto especial de Hotel Plaza");
+  const [asunto, setAsunto] = React.useState("Un gesto especial de Hotel Cabo Froward");
   const [cuerpo, setCuerpo] = React.useState(PLANTILLA_DEFECTO);
   const [enviando, setEnviando] = React.useState(false);
   const [enviado, setEnviado] = React.useState(false);

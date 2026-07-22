@@ -4,7 +4,7 @@
 
 export const NUMERO_WSP = "56612241300"; // +56 61 224 1300
 const MENSAJE = encodeURIComponent(
-  "Hola, quisiera hacer una consulta sobre una reserva en Hotel Plaza."
+  "Hola, quisiera hacer una consulta sobre una reserva en Hotel Cabo Froward."
 );
 
 // Enlace de WhatsApp con mensaje opcional pre-cargado.

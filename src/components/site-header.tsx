@@ -9,7 +9,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 w-full border-b border-border/70 bg-background/90 backdrop-blur">
       <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-gold to-transparent" />
       <div className="container flex h-16 sm:h-20 items-center justify-between gap-2">
-        <Link href="/" className="flex items-center shrink-0" aria-label="Hotel Plaza · Punta Arenas">
+        <Link href="/" className="flex items-center shrink-0" aria-label="Hotel Cabo Froward · Punta Arenas">
           <Image
             src="/logo-plaza-dark.png"
             alt="Hotel Plaza Punta Arenas"

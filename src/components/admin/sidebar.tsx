@@ -209,7 +209,7 @@ export function AdminSidebar() {
           className="hidden h-11 w-auto dark:block"
         />
         <div className="leading-tight">
-          <p className="font-serif text-sm font-semibold">Hotel Plaza</p>
+          <p className="font-serif text-sm font-semibold">Hotel Cabo Froward</p>
           <p className="text-[11px] text-muted-foreground -mt-0.5">Panel de administración</p>
         </div>
       </div>

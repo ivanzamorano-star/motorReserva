@@ -69,7 +69,7 @@ export function GestionUsuarios({ usuariosIniciales }: { usuariosIniciales: Usua
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="correo@hotelplaza.cl"
+                placeholder="correo@cabofroward.dev"
               />
             </div>
             <div className="space-y-1.5">

@@ -70,7 +70,7 @@ export default async function AdminDashboardPage() {
         <span className="eyebrow text-[0.62rem]">Panel del hotel</span>
         <h1 className="mt-2.5 font-serif text-3xl font-light tracking-[-0.01em]">Dashboard</h1>
         <p className="text-sm text-muted-foreground mt-1.5">
-          Resumen operativo de Hotel Plaza — {formatDate(HOY)}
+          Resumen operativo de Hotel Cabo Froward — {formatDate(HOY)}
         </p>
       </div>
 

@@ -39,7 +39,7 @@ export default async function HomePage() {
           <div className="absolute inset-0">
             <Image
               src="https://www.hotelplaza.cl/images/hotel_fachada_color.webp"
-              alt="Fachada histórica del Hotel Plaza, Punta Arenas"
+              alt="Fachada histórica del Hotel Cabo Froward, Punta Arenas"
               fill
               priority
               sizes="100vw"
@@ -207,7 +207,7 @@ export default async function HomePage() {
                 <div className="relative overflow-hidden rounded-2xl shadow-xl">
                   <Image
                     src="https://www.hotelplaza.cl/images/3.webp"
-                    alt="Comedor histórico del Hotel Plaza"
+                    alt="Comedor histórico del Hotel Cabo Froward"
                     width={900}
                     height={640}
                     className="w-full h-[420px] object-cover"

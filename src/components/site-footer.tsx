@@ -22,7 +22,7 @@ export function SiteFooter() {
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-gold mb-3"><T k="footer.contact" /></p>
           <p className="text-primary-foreground/70">+56 61 224 1300</p>
-          <p className="text-primary-foreground/70">reservas@hotelplaza.cl</p>
+          <p className="text-primary-foreground/70">reservas@cabofroward.dev</p>
         </div>
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-gold mb-3"><T k="footer.engine" /></p>
