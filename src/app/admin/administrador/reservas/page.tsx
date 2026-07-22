@@ -16,13 +16,15 @@ export default async function GestionReservasPage() {
     estado: r.estado,
     canalOrigen: r.canalOrigen,
     montoTotal: r.montoTotal,
+    solicitudEarlyCheckin: r.solicitudEarlyCheckin,
+    checkInRealizado: r.checkInRealizado,
   }));
 
   return (
     <div className="space-y-6">
       <AdminPageHeader eyebrow="Administrador · Centro de control" title="Gestión de reservas">
-        Confirma pagos, ajusta tarifas, cancela o elimina reservas. La cancelación conserva el
-        historial; la eliminación definitiva es solo para pruebas o cargas erróneas.
+        Confirma pagos, ajusta tarifas, cancela o elimina reservas. Aprueba solicitudes de Ingreso
+        Prioritario — el registro de qué mucama preparó cada habitación se hace en Incentivos.
       </AdminPageHeader>
 
       <GestionReservas reservasIniciales={filas} />

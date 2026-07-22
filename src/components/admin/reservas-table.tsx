@@ -19,6 +19,7 @@ import {
   BedDouble,
   CalendarRange,
   Users,
+  Sunrise,
   type LucideIcon,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -474,14 +475,33 @@ export function ReservasTable({ reservas }: { reservas: ReservaFila[] }) {
           <TableBody>
             {filtradas.map((r) => {
               const CanalIcon = CANAL_ICON[r.canalOrigen];
+              const ipAprobado = r.solicitudEarlyCheckin?.estado === "aprobada";
+              const ipPendiente = r.solicitudEarlyCheckin?.estado === "pendiente_confirmacion";
               return (
-                <TableRow key={r.id}>
+                <TableRow key={r.id} className={cn(ipAprobado && !r.checkInRealizado && "bg-gold/[0.06]")}>
                   <TableCell className="font-mono text-xs">{r.codigo}</TableCell>
                   <TableCell className="text-sm font-medium">
                     {r.huesped?.nombre ?? "Huésped demo"}
                   </TableCell>
                   <TableCell className="text-sm text-muted-foreground">
                     {r.habitacion?.nombre}
+                    {(ipAprobado || ipPendiente) && (
+                      <span
+                        className={cn(
+                          "mt-1 flex w-fit items-center gap-1 rounded-full border px-2 py-0.5 text-[0.62rem] font-medium uppercase tracking-[0.06em]",
+                          ipAprobado
+                            ? "border-gold/50 bg-gold/15 text-gold"
+                            : "border-border bg-secondary/60 text-muted-foreground"
+                        )}
+                      >
+                        <Sunrise className="h-3 w-3" />
+                        {r.checkInRealizado
+                          ? "Ingreso prioritario ✓"
+                          : ipAprobado
+                          ? "Ingreso prioritario"
+                          : "IP pendiente (Administrador)"}
+                      </span>
+                    )}
                   </TableCell>
                   <TableCell className="text-sm">{formatDate(r.checkIn)}</TableCell>
                   <TableCell className="text-sm">{formatDate(r.checkOut)}</TableCell>

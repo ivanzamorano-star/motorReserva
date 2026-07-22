@@ -5,6 +5,14 @@
 export type Idioma = "es" | "en";
 export type Moneda = "CLP" | "USD";
 
+// Staff Tag de una mucama — sin cuenta de usuario real. `pisoACargo` es el piso
+// que tiene asignado de forma fija; si se deja indefinido, es "flotante" y puede
+// cubrir cualquier piso cuando no hay una encargada fija disponible.
+export interface MucamaStaff {
+  nombre: string;
+  pisoACargo?: number;
+}
+
 export interface Hotel {
   id: string;
   nombre: string;
@@ -15,6 +23,10 @@ export interface Hotel {
   politicaCancelacion: string;
   telefono: string;
   email: string;
+  // Sistema ligero de incentivos — Ingreso Prioritario (early check-in).
+  precioIngresoPrioritario: number; // tarifa plana configurable
+  mucamas: MucamaStaff[]; // "Staff Tags", sin cuentas de usuario reales
+  incentivoIngresoPrioritarioPct: number; // 0–1, % de precioIngresoPrioritario que se paga de bono
 }
 
 export interface TipoHabitacion {
@@ -28,6 +40,7 @@ export interface TipoHabitacion {
   capacidad: number;
   cantidadUnidades: number;
   metros2: number;
+  piso: number; // piso donde se ubica este tipo de habitación (para asignar mucama de Ingreso Prioritario)
   amenities: string[];
   imagenGradient: string; // gradiente de respaldo / overlay sobre la foto
   imagenUrl: string; // foto real de la habitación
@@ -89,6 +102,31 @@ export interface DocumentoTributario {
   factura?: DatosFactura;
 }
 
+export type EstadoSolicitudExtra = "pendiente_confirmacion" | "aprobada" | "rechazada";
+
+// Solicitud de Ingreso Prioritario (early check-in) — tarifa plana fijada por
+// configuración del hotel al momento de la solicitud. Recepción la aprueba y,
+// al hacer el check-in, asigna qué mucama preparó la habitación (para el
+// sistema de incentivos).
+export interface SolicitudEarlyCheckin {
+  estado: EstadoSolicitudExtra;
+  monto: number;
+  solicitadaEn: string;
+  mucamaAsignada?: string;
+}
+
+export type FranjaLateCheckout = "franja1" | "franja2" | "franja3"; // 14:00 / 16:00 / +18:00
+
+// Solicitud de Late Check-out — tarificación proporcional (30% / 55% / 100% de la
+// tarifa/noche vigente), calculada al momento de la solicitud y sujeta a confirmación
+// y cobro final por parte de recepción (no se cobra en el checkout).
+export interface SolicitudLateCheckout {
+  franja: FranjaLateCheckout;
+  montoEstimado: number;
+  estado: EstadoSolicitudExtra;
+  solicitadaEn: string;
+}
+
 export interface Reserva {
   id: string;
   codigo: string;
@@ -109,6 +147,13 @@ export interface Reserva {
   huespedNombre?: string;
   huespedEmail?: string;
   huespedTelefono?: string;
+  // Solicitudes especiales (early check-in / late check-out) — modalidad "solo
+  // solicitud": no se cobran en el checkout, quedan pendientes de aprobación y
+  // cobro por parte de recepción 24 hrs antes.
+  solicitudEarlyCheckin?: SolicitudEarlyCheckin;
+  solicitudLateCheckout?: SolicitudLateCheckout;
+  // Se marca true cuando recepción entrega la habitación (check-in operativo).
+  checkInRealizado?: boolean;
 }
 
 export interface UsuarioStaff {

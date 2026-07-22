@@ -7,12 +7,15 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { IncentivosConfigCard } from "@/components/admin/incentivos-config-card";
 
 export default async function ConfiguracionPage() {
-  const [hotel, staff] = await Promise.all([
+  const [hotel, staff, tiposHabitacion] = await Promise.all([
     reservationRepository.getHotel(),
     reservationRepository.listarStaff(),
+    reservationRepository.listarTiposHabitacion(),
   ]);
+  const pisos = Array.from(new Set(tiposHabitacion.map((t) => t.piso))).sort((a, b) => a - b);
 
   return (
     <div className="space-y-6">
@@ -94,6 +97,8 @@ export default async function ConfiguracionPage() {
           </div>
         </CardContent>
       </Card>
+
+      <IncentivosConfigCard hotel={hotel} pisos={pisos} />
     </div>
   );
 }

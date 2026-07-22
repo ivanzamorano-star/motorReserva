@@ -7,7 +7,7 @@ import { RoomVisual } from "@/components/booking/room-visual";
 import {
   MapPin,
   Mountain,
-  Sparkles,
+  Landmark,
   ChevronDown,
   Users,
   Maximize2,
@@ -50,9 +50,9 @@ export default async function HomePage() {
             <div className="absolute inset-0 bg-noise opacity-[0.1]" />
           </div>
 
-          <div className="absolute top-6 left-4 sm:top-8 sm:left-8 z-10 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-primary/50 backdrop-blur px-4 py-1.5 text-primary-foreground shadow-sm">
+          <div className="absolute top-6 left-4 right-4 sm:right-auto sm:top-8 sm:left-8 z-10 inline-flex items-center gap-2 max-w-[calc(100%-2rem)] sm:max-w-none rounded-full border border-gold/40 bg-primary/50 backdrop-blur px-3.5 sm:px-4 py-1.5 text-primary-foreground shadow-sm">
             <MapPin className="h-3.5 w-3.5 text-gold shrink-0" />
-            <span className="text-[0.7rem] sm:text-xs font-medium uppercase tracking-[0.14em] whitespace-nowrap">
+            <span className="text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.1em] sm:tracking-[0.14em] truncate">
               Punta Arenas, Chile · Patagonia
             </span>
           </div>
@@ -98,7 +98,7 @@ export default async function HomePage() {
               {[
                 { icon: MapPin, k: "c1" },
                 { icon: Mountain, k: "c2" },
-                { icon: Sparkles, k: "c3" },
+                { icon: Landmark, k: "c3" },
               ].map((c) => {
                 const Icon = c.icon;
                 return (
@@ -168,7 +168,7 @@ export default async function HomePage() {
                     <RoomAmenitiesChips h={h} limit={4} />
                   </div>
 
-                  <div className="mt-auto flex items-end justify-between border-t border-border pt-5 mt-6">
+                  <div className="mt-auto flex flex-wrap items-end justify-between gap-3 border-t border-border pt-5 mt-6">
                     <div>
                       <p className="text-[0.62rem] uppercase tracking-[0.16em] text-muted-foreground">
                         <T k="home.rooms.from" />

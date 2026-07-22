@@ -22,6 +22,8 @@ import {
   DocumentoTributario,
   BloqueoHabitacion,
   EstadoReserva,
+  FranjaLateCheckout,
+  MucamaStaff,
 } from "@/domain/types";
 import {
   HOTEL,
@@ -89,6 +91,7 @@ interface DemoStore {
   tarifas: Tarifa[];
   usuarios: UsuarioStaff[];
   bloqueos: BloqueoHabitacion[];
+  hotel: Hotel;
 }
 
 const globalParaStore = globalThis as unknown as { __hotelPlazaStore?: DemoStore };
@@ -103,6 +106,7 @@ function sembrarStore(): DemoStore {
     tarifas: [...TARIFAS],
     usuarios: [...STAFF],
     bloqueos: [],
+    hotel: { ...HOTEL },
   };
 }
 
@@ -112,7 +116,13 @@ function getStore(): DemoStore {
   }
   const store = globalParaStore.__hotelPlazaStore;
   // Safe-guard: si algún array quedó undefined (por HMR o porque se agregó un
-  // campo nuevo a DemoStore tras una recarga), re-siembra completo.
+  // campo nuevo a DemoStore tras una recarga), re-siembra completo. También
+  // cubre el caso en que `hotel.mucamas` quedó con la forma vieja (string[])
+  // de una versión anterior del store, antes de que pasara a MucamaStaff[].
+  const mucamasConFormaVieja =
+    Array.isArray(store.hotel?.mucamas) &&
+    store.hotel.mucamas.length > 0 &&
+    typeof store.hotel.mucamas[0] === "string";
   if (
     !Array.isArray(store.reservas) ||
     !Array.isArray(store.campanias) ||
@@ -120,7 +130,9 @@ function getStore(): DemoStore {
     !Array.isArray(store.paquetes) ||
     !Array.isArray(store.tarifas) ||
     !Array.isArray(store.usuarios) ||
-    !Array.isArray(store.bloqueos)
+    !Array.isArray(store.bloqueos) ||
+    !store.hotel ||
+    mucamasConFormaVieja
   ) {
     globalParaStore.__hotelPlazaStore = sembrarStore();
     return globalParaStore.__hotelPlazaStore;
@@ -130,6 +142,13 @@ function getStore(): DemoStore {
 
 export interface ReservationRepository {
   getHotel(): Promise<Hotel>;
+  actualizarConfigIncentivos(input: {
+    mucamas: MucamaStaff[];
+    incentivoIngresoPrioritarioPct: number;
+    precioIngresoPrioritario: number;
+  }): Promise<Hotel>;
+  aprobarSolicitudEarlyCheckin(reservaId: string): Promise<Reserva>;
+  asignarMucamaIngresoPrioritario(reservaId: string, mucama: string): Promise<Reserva>;
   getDisponibilidad(
     checkIn: string,
     checkOut: string,
@@ -148,6 +167,9 @@ export interface ReservationRepository {
     telefono: string;
     montoTotal: number;
     documentoTributario?: DocumentoTributario;
+    solicitaEarlyCheckin?: boolean;
+    lateCheckoutFranja?: FranjaLateCheckout;
+    lateCheckoutMontoEstimado?: number;
   }): Promise<Reserva>;
   confirmarPago(reservaId: string): Promise<{ reserva: Reserva; pago: Pago }>;
   listarReservas(): Promise<(Reserva & { huesped?: Huesped; habitacion?: TipoHabitacion })[]>;
@@ -213,7 +235,50 @@ export interface ReservationRepository {
 
 class MockReservationRepository implements ReservationRepository {
   async getHotel() {
-    return delay(HOTEL);
+    return delay(getStore().hotel);
+  }
+
+  async actualizarConfigIncentivos(input: {
+    mucamas: MucamaStaff[];
+    incentivoIngresoPrioritarioPct: number;
+    precioIngresoPrioritario: number;
+  }) {
+    const store = getStore();
+    store.hotel = {
+      ...store.hotel,
+      mucamas: input.mucamas,
+      incentivoIngresoPrioritarioPct: input.incentivoIngresoPrioritarioPct,
+      precioIngresoPrioritario: input.precioIngresoPrioritario,
+    };
+    return delay(store.hotel, 300);
+  }
+
+  async aprobarSolicitudEarlyCheckin(reservaId: string) {
+    const store = getStore();
+    const idx = store.reservas.findIndex((r) => r.id === reservaId);
+    if (idx === -1) throw new Error("Reserva no encontrada");
+    const actual = store.reservas[idx].solicitudEarlyCheckin;
+    if (!actual) throw new Error("Esta reserva no tiene una solicitud de Ingreso Prioritario.");
+    store.reservas[idx] = {
+      ...store.reservas[idx],
+      solicitudEarlyCheckin: { ...actual, estado: "aprobada" },
+    };
+    return delay(store.reservas[idx], 300);
+  }
+
+  async asignarMucamaIngresoPrioritario(reservaId: string, mucama: string) {
+    const store = getStore();
+    const idx = store.reservas.findIndex((r) => r.id === reservaId);
+    if (idx === -1) throw new Error("Reserva no encontrada");
+    const actual = store.reservas[idx].solicitudEarlyCheckin;
+    store.reservas[idx] = {
+      ...store.reservas[idx],
+      checkInRealizado: true,
+      ...(actual
+        ? { solicitudEarlyCheckin: { ...actual, mucamaAsignada: mucama } }
+        : {}),
+    };
+    return delay(store.reservas[idx], 300);
   }
 
   async getDisponibilidad(
@@ -319,6 +384,9 @@ class MockReservationRepository implements ReservationRepository {
     telefono: string;
     montoTotal: number;
     documentoTributario?: DocumentoTributario;
+    solicitaEarlyCheckin?: boolean;
+    lateCheckoutFranja?: FranjaLateCheckout;
+    lateCheckoutMontoEstimado?: number;
   }) {
     const store = getStore();
 
@@ -350,6 +418,32 @@ class MockReservationRepository implements ReservationRepository {
       montoTotal: input.montoTotal,
       creadaEn: new Date().toISOString(),
       documentoTributario: input.documentoTributario,
+      // Datos del huésped tal como los ingresó en el checkout público — sin esto
+      // la reserva queda "huérfana" (aparece como "Huésped directo" en todo el
+      // panel), lo que hace imposible identificar a quién pertenece cada
+      // solicitud de Ingreso Prioritario en Incentivos.
+      huespedNombre: input.nombre.trim(),
+      huespedEmail: input.email.trim(),
+      huespedTelefono: input.telefono.trim(),
+      ...(input.solicitaEarlyCheckin
+        ? {
+            solicitudEarlyCheckin: {
+              estado: "pendiente_confirmacion" as const,
+              monto: store.hotel.precioIngresoPrioritario,
+              solicitadaEn: new Date().toISOString(),
+            },
+          }
+        : {}),
+      ...(input.lateCheckoutFranja
+        ? {
+            solicitudLateCheckout: {
+              franja: input.lateCheckoutFranja,
+              montoEstimado: input.lateCheckoutMontoEstimado ?? 0,
+              estado: "pendiente_confirmacion" as const,
+              solicitadaEn: new Date().toISOString(),
+            },
+          }
+        : {}),
     };
     store.reservas = [nueva, ...store.reservas];
     return delay(nueva, 600);

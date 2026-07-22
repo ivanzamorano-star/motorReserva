@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, TrendingDown, XCircle, Trash2 } from "lucide-react";
+import { CheckCircle2, TrendingDown, XCircle, Trash2, Sunrise, ThumbsUp } from "lucide-react";
 import {
   Table,
   TableHeader,
@@ -23,13 +23,14 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { formatCLP, formatDate } from "@/lib/utils";
-import type { EstadoReserva } from "@/domain/types";
+import { formatCLP, formatDate, cn } from "@/lib/utils";
+import type { EstadoReserva, SolicitudEarlyCheckin } from "@/domain/types";
 import {
   cancelarReservaAction,
   eliminarReservaAction,
   confirmarPagoAction,
   ajustarTarifaReservaAction,
+  aprobarSolicitudEarlyCheckinAction,
 } from "@/app/admin/administrador/actions";
 
 type Fila = {
@@ -43,6 +44,8 @@ type Fila = {
   estado: EstadoReserva;
   canalOrigen: string;
   montoTotal: number;
+  solicitudEarlyCheckin?: SolicitudEarlyCheckin;
+  checkInRealizado?: boolean;
 };
 
 const ESTADO: Record<EstadoReserva, { label: string; variant: "gold" | "outline" | "destructive" }> = {
@@ -64,6 +67,18 @@ export function GestionReservas({ reservasIniciales }: { reservasIniciales: Fila
   const [error, setError] = React.useState<string | null>(null);
 
   const esCancelada = (e: EstadoReserva) => e === "cancelada_hotel" || e === "cancelada_huesped";
+
+  async function aprobarIngresoPrioritario(f: Fila) {
+    setPendiente(f.id);
+    try {
+      const r = await aprobarSolicitudEarlyCheckinAction(f.id);
+      setReservas((prev) =>
+        prev.map((x) => (x.id === f.id ? { ...x, solicitudEarlyCheckin: r.solicitudEarlyCheckin } : x))
+      );
+    } finally {
+      setPendiente(null);
+    }
+  }
 
   async function confirmar(f: Fila) {
     setPendiente(f.id);
@@ -136,6 +151,8 @@ export function GestionReservas({ reservasIniciales }: { reservasIniciales: Fila
               <AnimatePresence initial={false}>
                 {reservas.map((f) => {
                   const busy = pendiente === f.id;
+                  const ipAprobado = f.solicitudEarlyCheckin?.estado === "aprobada";
+                  const ipPendiente = f.solicitudEarlyCheckin?.estado === "pendiente_confirmacion";
                   return (
                     <motion.tr
                       key={f.id}
@@ -143,14 +160,36 @@ export function GestionReservas({ reservasIniciales }: { reservasIniciales: Fila
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="border-b border-border last:border-0"
+                      className={cn(
+                        "border-b border-border last:border-0",
+                        ipAprobado && !f.checkInRealizado && "bg-gold/[0.06]"
+                      )}
                     >
                       <TableCell className="font-mono text-xs">{f.codigo}</TableCell>
                       <TableCell>
                         <div className="text-sm font-medium">{f.huesped}</div>
                         <div className="text-xs text-muted-foreground capitalize">{f.canalOrigen}</div>
                       </TableCell>
-                      <TableCell className="text-sm">{f.habitacion}</TableCell>
+                      <TableCell className="text-sm">
+                        {f.habitacion}
+                        {(ipAprobado || ipPendiente) && (
+                          <span
+                            className={cn(
+                              "mt-1 flex w-fit items-center gap-1 rounded-full border px-2 py-0.5 text-[0.62rem] font-medium uppercase tracking-[0.06em]",
+                              ipAprobado
+                                ? "border-gold/50 bg-gold/15 text-gold"
+                                : "border-border bg-secondary/60 text-muted-foreground"
+                            )}
+                          >
+                            <Sunrise className="h-3 w-3" />
+                            {f.checkInRealizado
+                              ? "Ingreso prioritario ✓"
+                              : ipAprobado
+                              ? "IP aprobado · falta registrar mucama en Incentivos"
+                              : "IP pendiente de aprobación"}
+                          </span>
+                        )}
+                      </TableCell>
                       <TableCell className="text-xs text-muted-foreground">
                         {formatDate(f.checkIn, { day: "2-digit", month: "short" })} →{" "}
                         {formatDate(f.checkOut, { day: "2-digit", month: "short" })}
@@ -170,6 +209,17 @@ export function GestionReservas({ reservasIniciales }: { reservasIniciales: Fila
                               title="Confirmar pago"
                             >
                               <CheckCircle2 className="h-4 w-4 text-success" />
+                            </Button>
+                          )}
+                          {ipPendiente && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              disabled={busy}
+                              onClick={() => aprobarIngresoPrioritario(f)}
+                              title="Aprobar Ingreso Prioritario"
+                            >
+                              <ThumbsUp className="h-4 w-4 text-gold" />
                             </Button>
                           )}
                           <Button

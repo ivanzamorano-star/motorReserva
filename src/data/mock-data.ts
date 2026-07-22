@@ -23,6 +23,16 @@ export const HOTEL: Hotel = {
   politicaCancelacion: "Cancelación gratuita hasta 48 horas antes del check-in.",
   telefono: "+56 61 224 1300",
   email: "reservas@cabofroward.dev",
+  precioIngresoPrioritario: 15000,
+  // Encargadas fijas por piso (Marisol/Camila comparten el Piso 1); Fernanda es
+  // flotante (sin piso fijo) y cubre cualquier piso cuando no hay encargada disponible.
+  mucamas: [
+    { nombre: "Marisol Vera", pisoACargo: 1 },
+    { nombre: "Paola Aguilar", pisoACargo: 2 },
+    { nombre: "Fernanda Ojeda" },
+    { nombre: "Camila Bahamonde", pisoACargo: 1 },
+  ],
+  incentivoIngresoPrioritarioPct: 0.3,
 };
 
 export const TIPOS_HABITACION: TipoHabitacion[] = [
@@ -37,6 +47,7 @@ export const TIPOS_HABITACION: TipoHabitacion[] = [
     capacidad: 2,
     cantidadUnidades: 8,
     metros2: 18,
+    piso: 1,
     amenities: ["Wi-Fi", "Calefacción central", "Baño privado", "TV cable"],
     imagenGradient: "from-slate-900/70 via-slate-900/10 to-transparent",
     imagenUrl: "/rooms/standard.png",
@@ -52,6 +63,7 @@ export const TIPOS_HABITACION: TipoHabitacion[] = [
     capacidad: 2,
     cantidadUnidades: 6,
     metros2: 24,
+    piso: 2,
     amenities: ["Wi-Fi", "Escritorio", "Minibar", "Baño privado", "TV cable"],
     imagenGradient: "from-blue-950/70 via-slate-900/10 to-transparent",
     imagenUrl: "/rooms/superior.png",
@@ -67,6 +79,7 @@ export const TIPOS_HABITACION: TipoHabitacion[] = [
     capacidad: 3,
     cantidadUnidades: 3,
     metros2: 34,
+    piso: 3,
     amenities: ["Wi-Fi", "Living separado", "Minibar premium", "Bata y pantuflas", "Vista panorámica"],
     imagenGradient: "from-amber-900/70 via-slate-900/10 to-transparent",
     imagenUrl: "/rooms/suit.png",

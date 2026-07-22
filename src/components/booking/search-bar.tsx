@@ -91,9 +91,9 @@ export function SearchBar({
           : "flex flex-col gap-3 bg-card/98 backdrop-blur border border-border/80 rounded-xl p-4 sm:p-6 shadow-2xl"
       }
     >
-      <div className="md:flex md:flex-row md:items-end md:gap-3 space-y-2 md:space-y-0">
-        <div className="grid grid-cols-2 md:flex md:flex-1 md:gap-3 gap-2">
-          <div className="min-w-0 md:flex-1">
+      <div className="lg:flex lg:flex-row lg:items-end lg:gap-3 space-y-2 lg:space-y-0">
+        <div className="grid grid-cols-2 lg:flex lg:flex-1 lg:gap-3 gap-2">
+          <div className="min-w-0 lg:flex-1">
             <Label htmlFor="checkin" className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground mb-1.5">
               <CalendarDays className="h-3.5 w-3.5 shrink-0" /> Check-in
             </Label>
@@ -107,7 +107,7 @@ export function SearchBar({
               className="w-full h-11 rounded-md border border-input bg-background px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
-          <div className="min-w-0 md:flex-1">
+          <div className="min-w-0 lg:flex-1">
             <Label htmlFor="checkout" className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground mb-1.5">
               <CalendarDays className="h-3.5 w-3.5 shrink-0" /> Check-out
             </Label>
@@ -121,7 +121,7 @@ export function SearchBar({
               className="w-full h-11 rounded-md border border-input bg-background px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
-          <div className="min-w-0 md:w-24">
+          <div className="col-span-2 lg:col-span-1 min-w-0 lg:w-24">
             <Label htmlFor="huespedes" className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground mb-1.5">
               <Users className="h-3.5 w-3.5 shrink-0" /> {t("sb.guests")}
             </Label>
@@ -136,7 +136,7 @@ export function SearchBar({
             />
           </div>
         </div>
-        <Button type="submit" size="lg" variant="gold" className="gap-2 w-full md:w-auto md:self-end h-11" disabled={enviando}>
+        <Button type="submit" size="lg" variant="gold" className="gap-2 w-full lg:w-auto lg:self-end h-11" disabled={enviando}>
         {enviando ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" /> {t("sb.searching")}

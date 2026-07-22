@@ -13,11 +13,14 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "nav.rooms": "Habitaciones",
     "nav.restaurant": "Restaurant",
     "nav.bar": "Bar",
+    "nav.reservations": "Reservas",
+    "nav.reservations.room": "Reserva de habitación",
+    "nav.reservations.restaurant": "Reserva de restaurant",
     "nav.contact": "Contacto",
     "nav.panel": "Panel del hotel",
     // Hero
     "hero.overline": "Punta Arenas · Patagonia Chilena",
-    "hero.title": "Tradición y calidez en el corazón de Punta Arenas",
+    "hero.title": "Historia y hospitalidad patagónica",
     "hero.subtitle":
       "Un edificio histórico frente a la Plaza de Armas, a pasos del Estrecho de Magallanes.",
     "hero.support":
@@ -41,9 +44,9 @@ const DICT: Record<Idioma, Record<string, string>> = {
       "No encontramos ese correo, pero puedes reservar igual al mejor precio directo.",
     // Home · Nuestro hotel
     "home.hotel.eyebrow": "Nuestro hotel",
-    "home.hotel.title": "Un clásico de Punta Arenas",
+    "home.hotel.title": "Un ícono de Punta Arenas",
     "home.hotel.subtitle":
-      "El Hotel Cabo Froward forma parte de la identidad histórica de la ciudad. Una estadía cálida y cercana, en una ubicación privilegiada para descubrir la Patagonia chilena.",
+      "Testigo de la historia de Punta Arenas, el Hotel Cabo Froward recibe a sus huéspedes con la calidez de siempre. Un punto de partida privilegiado para explorar la Patagonia chilena.",
     "home.hotel.c1.title": "Ubicación privilegiada",
     "home.hotel.c1.text":
       "Frente a la Plaza de Armas y a pasos de restaurantes, cafeterías, museos y los principales atractivos de Punta Arenas.",
@@ -81,7 +84,7 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "home.bar.tag": "Cócteles de autor",
     "home.bar.title": "Bar Luis Pardo",
     "home.bar.subtitle":
-      "Un salón de líneas neoclásicas, maderas cálidas y luz de araña, bautizado en homenaje al marino Luis Pardo Villalón, quien zarpó desde Punta Arenas al mando del Yelcho y rescató, en pleno invierno antártico de 1916, a los 22 hombres de la expedición de Ernest Shackleton. Hoy es el lugar donde nuestros huéspedes se reúnen a conversar, disfrutar un cóctel de autor y sentirse en casa, cómodos, en el confín de la Patagonia.",
+      "Entre líneas neoclásicas y el abrazo de maderas cálidas, este salón rinde homenaje al marino Luis Pardo Villalón. Desde Punta Arenas, él zarpó al mando de la escampavía Yelcho, el heroico buque que logró rescatar, en pleno invierno antártico de 1916, a los 22 náufragos de la expedición de Ernest Shackleton. Hoy, impregnado de esa historia, el Salón Pardo es el refugio perfecto donde nuestros huéspedes se reúnen a compartir historias, disfrutar de un cóctel de autor y sentirse como en casa, abrigados y cómodos en el confín de la Patagonia.",
     "home.food.c1.title": "Hecho en casa",
     "home.food.c1.text": "Queques y panes recién horneados cada mañana.",
     "home.food.c2.title": "Comedor histórico",
@@ -160,6 +163,22 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "as.svc.in-room-dining.name": "Experiencia In-Room Dining",
     "as.svc.in-room-dining.desc":
       "Desayuno servido en la cama para comenzar el día con calma.",
+    "as.special.title": "Solicitudes especiales",
+    "as.special.legend":
+      "Solicitud prioritaria — sujeta a disponibilidad y aprobación de recepción 24 horas antes de tu llegada/salida. Recepción confirma y cobra el monto final directamente.",
+    "as.special.earlyCheckin.name": "Ingreso Prioritario",
+    "as.special.earlyCheckin.desc":
+      "Ideal para familias, vuelos de madrugada o exceso de equipaje. Prepararemos tu habitación con máxima prioridad.",
+    "as.special.earlyCheckin.request": "Solicitar Ingreso Prioritario",
+    "as.special.earlyCheckin.requested": "Solicitado — pendiente de confirmación",
+    "as.special.lateCheckout.name": "Late check-out",
+    "as.special.lateCheckout.desc":
+      "Disfruta la mañana sin apuros. Elige la franja y te mostramos el monto estimado.",
+    "as.special.lateCheckout.slot1": "Hasta las 14:00 hrs",
+    "as.special.lateCheckout.slot2": "Hasta las 16:00 hrs",
+    "as.special.lateCheckout.slot3": "Pasadas las 18:00 hrs",
+    "as.special.lateCheckout.estimated": "Monto estimado",
+    "as.special.lateCheckout.pending": "Pendiente de confirmación",
     // Formulario de checkout (datos, pago, resumen)
     "cf.guestData": "Datos del huésped",
     "cf.fullName": "Nombre completo",
@@ -182,6 +201,9 @@ const DICT: Record<Idioma, Record<string, string>> = {
       "Estamos bloqueando la habitación y validando el pago con Transbank en tiempo real.",
     "cf.summary": "Resumen de reserva",
     "cf.extraServices": "Servicios adicionales",
+    "cf.pendingRequests": "Solicitudes pendientes",
+    "cf.pendingNote":
+      "No incluidas en este cobro. Recepción confirmará disponibilidad y cobrará el monto final 24 hrs antes.",
     "cf.courtesy": "Cortesía",
     "cf.totalFinal": "Total final",
     "cf.taxNote": "Impuestos incluidos · sin cargos adicionales al pagar",
@@ -280,11 +302,6 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "mc.tier.stays": "{n} estadías directas con nosotros",
     "mc.tier.toNext": "Te faltan {n} para el nivel {nivel}",
     "mc.tier.top": "Ya estás en el nivel máximo. ¡Gracias por tu preferencia!",
-    // A4 — nuevos servicios (upsell en el flujo)
-    "as.svc.late-checkout.name": "Late check-out (hasta 14:00)",
-    "as.svc.late-checkout.desc": "Disfruta la mañana sin apuros y sal más tarde.",
-    "as.svc.early-checkin.name": "Early check-in (desde 10:00)",
-    "as.svc.early-checkin.desc": "Entra antes a tu habitación tras un viaje largo.",
     // A2 — métodos de pago
     "pm.title": "Método de pago",
     "pm.card": "Tarjeta (Webpay)",
@@ -311,6 +328,9 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "nav.rooms": "Rooms",
     "nav.restaurant": "Restaurant",
     "nav.bar": "Bar",
+    "nav.reservations": "Reservations",
+    "nav.reservations.room": "Room reservation",
+    "nav.reservations.restaurant": "Restaurant reservation",
     "nav.contact": "Contact",
     "nav.panel": "Hotel panel",
     // Hero
@@ -457,6 +477,22 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "as.svc.in-room-dining.name": "In-Room Dining Experience",
     "as.svc.in-room-dining.desc":
       "Breakfast served in bed to start the day calmly.",
+    "as.special.title": "Special requests",
+    "as.special.legend":
+      "Priority request — subject to availability and front desk approval 24 hours before your arrival/departure. Front desk confirms and charges the final amount directly.",
+    "as.special.earlyCheckin.name": "Priority Check-in",
+    "as.special.earlyCheckin.desc":
+      "Ideal for families, red-eye flights or extra luggage. We'll get your room ready with top priority.",
+    "as.special.earlyCheckin.request": "Request Priority Check-in",
+    "as.special.earlyCheckin.requested": "Requested — pending confirmation",
+    "as.special.lateCheckout.name": "Late check-out",
+    "as.special.lateCheckout.desc":
+      "Enjoy a relaxed morning. Pick a time slot and we'll show you the estimated amount.",
+    "as.special.lateCheckout.slot1": "Until 2:00 PM",
+    "as.special.lateCheckout.slot2": "Until 4:00 PM",
+    "as.special.lateCheckout.slot3": "After 6:00 PM",
+    "as.special.lateCheckout.estimated": "Estimated amount",
+    "as.special.lateCheckout.pending": "Pending confirmation",
     // Checkout form (details, payment, summary)
     "cf.guestData": "Guest details",
     "cf.fullName": "Full name",
@@ -479,6 +515,9 @@ const DICT: Record<Idioma, Record<string, string>> = {
       "We're holding the room and validating the payment with Transbank in real time.",
     "cf.summary": "Booking summary",
     "cf.extraServices": "Additional services",
+    "cf.pendingRequests": "Pending requests",
+    "cf.pendingNote":
+      "Not included in this charge. Front desk will confirm availability and charge the final amount 24 hours ahead.",
     "cf.courtesy": "Complimentary",
     "cf.totalFinal": "Final total",
     "cf.taxNote": "Taxes included · no extra charges at payment",
@@ -576,11 +615,6 @@ const DICT: Record<Idioma, Record<string, string>> = {
     "mc.tier.stays": "{n} direct stays with us",
     "mc.tier.toNext": "{n} more to reach {nivel} tier",
     "mc.tier.top": "You're already at the top tier. Thank you for your loyalty!",
-    // A4 — new services (in-flow upsell)
-    "as.svc.late-checkout.name": "Late check-out (until 2:00 PM)",
-    "as.svc.late-checkout.desc": "Enjoy a relaxed morning and leave later.",
-    "as.svc.early-checkin.name": "Early check-in (from 10:00 AM)",
-    "as.svc.early-checkin.desc": "Get into your room earlier after a long trip.",
     // A2 — payment methods
     "pm.title": "Payment method",
     "pm.card": "Card (Webpay)",

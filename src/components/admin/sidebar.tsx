@@ -20,8 +20,9 @@ import {
   Plug,
   Settings,
   ShieldCheck,
-  ArrowLeftRight,
+  ArrowLeft,
   ChevronDown,
+  Award,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -70,6 +71,7 @@ const NAV: NavItem[] = [
     children: [
       { href: "/admin/administrador/nueva-reserva", label: "Nueva reserva" },
       { href: "/admin/administrador/reservas", label: "Gestión de reservas" },
+      { href: "/admin/administrador/incentivos", label: "Incentivos" },
       { href: "/admin/administrador/usuarios", label: "Usuarios" },
       { href: "/admin/administrador/bloqueos", label: "Bloqueos de habitación" },
     ],
@@ -221,7 +223,7 @@ export function AdminSidebar() {
           href="/"
           className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors mb-1"
         >
-          <ArrowLeftRight className="h-4 w-4" /> Ver sitio de reservas
+          <ArrowLeft className="h-4 w-4" /> Volver al sitio web
         </Link>
         <div className="flex items-center justify-between px-3 py-2">
           <div className="flex items-center gap-2">

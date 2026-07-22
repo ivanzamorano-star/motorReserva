@@ -21,7 +21,10 @@ export default async function ReservaPage({
 
   // Mantiene la tarifa secreta reconocida en la búsqueda a lo largo del checkout.
   const nivel = email ? await reservationRepository.getNivelPorEmail(email) : null;
-  const disponibilidad = await reservationRepository.getDisponibilidad(checkIn, checkOut, { nivel });
+  const [disponibilidad, hotel] = await Promise.all([
+    reservationRepository.getDisponibilidad(checkIn, checkOut, { nivel }),
+    reservationRepository.getHotel(),
+  ]);
   const habitacion = disponibilidad.find((h) => h.id === roomId);
   if (!habitacion) notFound();
 
@@ -38,7 +41,13 @@ export default async function ReservaPage({
             <T k="co.subtitle" />
           </p>
         </div>
-        <CheckoutForm habitacion={habitacion} checkIn={checkIn} checkOut={checkOut} huespedes={huespedes} />
+        <CheckoutForm
+          habitacion={habitacion}
+          checkIn={checkIn}
+          checkOut={checkOut}
+          huespedes={huespedes}
+          precioIngresoPrioritario={hotel.precioIngresoPrioritario}
+        />
       </main>
       <SiteFooter />
     </>

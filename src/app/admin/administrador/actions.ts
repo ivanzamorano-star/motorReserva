@@ -10,6 +10,7 @@ import type { EstadoReserva, UsuarioStaff } from "@/domain/types";
 function revalidarReservas() {
   revalidatePath("/admin/administrador/reservas");
   revalidatePath("/admin/administrador/nueva-reserva");
+  revalidatePath("/admin/administrador/incentivos");
   revalidatePath("/admin/reservas");
   revalidatePath("/admin/calendario");
   revalidatePath("/admin");
@@ -52,6 +53,20 @@ export async function confirmarPagoAction(id: string) {
 
 export async function ajustarTarifaReservaAction(id: string, nuevoMonto: number) {
   const reserva = await reservationRepository.ajustarTarifaReserva(id, nuevoMonto);
+  revalidarReservas();
+  return reserva;
+}
+
+// Ingreso Prioritario — el administrador aprueba la solicitud y, al hacer el
+// check-in, designa qué mucama preparó la habitación (sistema de incentivos).
+export async function aprobarSolicitudEarlyCheckinAction(reservaId: string) {
+  const reserva = await reservationRepository.aprobarSolicitudEarlyCheckin(reservaId);
+  revalidarReservas();
+  return reserva;
+}
+
+export async function asignarMucamaIngresoPrioritarioAction(reservaId: string, mucama: string) {
+  const reserva = await reservationRepository.asignarMucamaIngresoPrioritario(reservaId, mucama);
   revalidarReservas();
   return reserva;
 }

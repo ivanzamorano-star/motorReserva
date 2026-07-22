@@ -69,14 +69,14 @@ export function RoomCard({
           agotada ? "opacity-70" : "hover:shadow-lg"
         )}
       >
-        <div className="grid sm:grid-cols-[280px_1fr]">
+        <div className="grid md:grid-cols-[280px_1fr]">
           <div className="overflow-hidden">
             <RoomVisual
               gradient={habitacion.imagenGradient}
               imageUrl={habitacion.imagenUrl}
               alt={nombre}
               className={cn(
-                "h-48 sm:h-full transition-transform duration-500",
+                "h-48 md:h-full transition-transform duration-500",
                 agotada ? "grayscale-[0.6]" : "group-hover:scale-105"
               )}
             />
@@ -130,7 +130,7 @@ export function RoomCard({
                 )}
               </div>
             </div>
-            <div className="flex items-end justify-between border-t border-border pt-4">
+            <div className="flex flex-wrap items-end justify-between gap-3 border-t border-border pt-4">
               <div>
                 <p className="text-[11px] uppercase tracking-[0.1em] text-muted-foreground">{t("rc.nightsTotal", { n: noches, label: nochesLabel })}</p>
                 <div className="flex items-center gap-2">

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { reservationRepository } from "@/data/repository";
+import { crearReservaYConfirmarAction } from "@/app/reserva/actions";
 import { nightsBetween } from "@/lib/utils";
 import { useMoneda } from "@/lib/moneda";
 import { useIdioma } from "@/lib/idioma";
@@ -18,6 +18,7 @@ import type { HabitacionConDisponibilidad } from "@/domain/types";
 import {
   AdditionalServices,
   type ServicioExtra,
+  type SolicitudesEspeciales,
 } from "@/components/booking/additional-services";
 import {
   TaxDocumentSelector,
@@ -36,11 +37,13 @@ export function CheckoutForm({
   checkIn,
   checkOut,
   huespedes,
+  precioIngresoPrioritario,
 }: {
   habitacion: HabitacionConDisponibilidad;
   checkIn: string;
   checkOut: string;
   huespedes: string;
+  precioIngresoPrioritario: number;
 }) {
   const router = useRouter();
   const { formatear } = useMoneda();
@@ -53,6 +56,12 @@ export function CheckoutForm({
   const [telefono, setTelefono] = React.useState("");
   const [extras, setExtras] = React.useState<ServicioExtra[]>([]);
   const [extrasTotal, setExtrasTotal] = React.useState(0);
+  const [solicitudes, setSolicitudes] = React.useState<SolicitudesEspeciales>({
+    earlyCheckinSolicitado: false,
+    earlyCheckinMonto: 0,
+    lateCheckoutFranja: null,
+    lateCheckoutMonto: 0,
+  });
   const [documento, setDocumento] = React.useState<DocumentoTributarioValue>({
     tipo: "boleta",
     factura: FACTURA_VACIA,
@@ -86,7 +95,7 @@ export function CheckoutForm({
       documento.tipo === "factura"
         ? { tipo: "factura" as const, factura: documento.factura }
         : { tipo: "boleta" as const };
-    const reserva = await reservationRepository.crearReserva({
+    const confirmada = await crearReservaYConfirmarAction({
       tipoHabitacionId: habitacion.id,
       checkIn,
       checkOut,
@@ -96,8 +105,12 @@ export function CheckoutForm({
       telefono,
       montoTotal: totalFinal,
       documentoTributario,
+      solicitaEarlyCheckin: solicitudes.earlyCheckinSolicitado || undefined,
+      lateCheckoutFranja: solicitudes.lateCheckoutFranja ?? undefined,
+      lateCheckoutMontoEstimado: solicitudes.lateCheckoutFranja
+        ? solicitudes.lateCheckoutMonto
+        : undefined,
     });
-    const { reserva: confirmada } = await reservationRepository.confirmarPago(reserva.id);
     track("purchase", {
       transaction_id: confirmada.codigo,
       currency: "CLP",
@@ -121,10 +134,13 @@ export function CheckoutForm({
               transition={{ duration: 0.25 }}
             >
               <AdditionalServices
+                tarifaNoche={habitacion.tarifaNoche}
+                precioIngresoPrioritario={precioIngresoPrioritario}
                 onChange={(total, servicios) => {
                   setExtrasTotal(total);
                   setExtras(servicios);
                 }}
+                onSpecialChange={setSolicitudes}
                 onContinue={() => setPaso("datos")}
               />
             </motion.div>
@@ -255,7 +271,7 @@ export function CheckoutForm({
         </AnimatePresence>
       </div>
 
-      <div className="card-accent p-6 h-fit sticky top-24">
+      <div className="card-accent p-6 h-fit lg:sticky lg:top-24">
         <span className="eyebrow text-[0.62rem] after:hidden">{t("cf.summary")}</span>
         <p className="font-serif text-xl font-medium mt-3">{nombreHab}</p>
         <p className="text-sm text-muted-foreground mt-1.5">{checkIn} → {checkOut}</p>
@@ -281,6 +297,31 @@ export function CheckoutForm({
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {(solicitudes.earlyCheckinSolicitado || solicitudes.lateCheckoutFranja) && (
+          <div className="mt-4">
+            <p className="text-[0.62rem] uppercase tracking-[0.16em] text-muted-foreground mb-2">
+              {t("cf.pendingRequests")}
+            </p>
+            <div className="space-y-1.5">
+              {solicitudes.earlyCheckinSolicitado && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">{t("as.special.earlyCheckin.name")}</span>
+                  <span>~{formatear(solicitudes.earlyCheckinMonto)}</span>
+                </div>
+              )}
+              {solicitudes.lateCheckoutFranja && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">{t("as.special.lateCheckout.name")}</span>
+                  <span>~{formatear(solicitudes.lateCheckoutMonto)}</span>
+                </div>
+              )}
+            </div>
+            <p className="mt-2 text-[0.68rem] leading-relaxed text-muted-foreground">
+              {t("cf.pendingNote")}
+            </p>
           </div>
         )}
 
